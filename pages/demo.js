@@ -34,10 +34,7 @@ export default function GnymbleDemo() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          useCase: formData.message // Map message to useCase for API
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {

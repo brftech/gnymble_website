@@ -91,11 +91,11 @@ export default function GnymbleDemoSimple() {
       <section className="pt-20 pb-16 px-6 text-center">
         <h1 className="text-6xl font-black leading-tight mb-6">
           <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
-            See Gnymble in Action
+            See {config.name} in Action
           </span>
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          Experience how Gnymble transforms SMS communications for regulated industries. 
+          Experience how {config.name} transforms SMS communications for regulated industries. 
           Get a personalized demo tailored to your compliance needs.
         </p>
       </section>
@@ -261,7 +261,7 @@ export default function GnymbleDemoSimple() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-white mb-1">Personalized Demo</h4>
-                      <p className="text-gray-300 text-sm">See Gnymble configured for your specific industry and compliance needs.</p>
+                      <p className="text-gray-300 text-sm">See {config.name} configured for your specific industry and compliance needs.</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
@@ -279,7 +279,7 @@ export default function GnymbleDemoSimple() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-white mb-1">Integration Demo</h4>
-                      <p className="text-gray-300 text-sm">See how Gnymble integrates with your existing tools and workflows.</p>
+                      <p className="text-gray-300 text-sm">See how {config.name} integrates with your existing tools and workflows.</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
@@ -297,10 +297,10 @@ export default function GnymbleDemoSimple() {
               <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
                 <h3 className="text-2xl font-black text-white mb-6">Ready to Get Started?</h3>
                 <p className="text-gray-300 mb-6">
-                  Can't wait for a demo? Start exploring Gnymble right now with our free trial.
+                  Can't wait for a demo? Start exploring {config.name} right now with our free trial.
                 </p>
                 <a
-                  href="/signup?platform=gnymble"
+                  href={`/signup?platform=${config.name.toLowerCase()}`}
                   className="inline-block bg-gradient-to-r from-amber-700 to-amber-600 text-white px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300"
                 >
                   Start Free Trial

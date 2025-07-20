@@ -1,5 +1,6 @@
 import Stripe from 'stripe';
-import { logger } from '../../../lib/logger';
+import { getSiteConfig } from '@percytech/shared';
+import logger from '../../../lib/logger';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -22,22 +23,25 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'Customer email is required' });
     }
 
+    // Get site config for dynamic naming
+    const siteConfig = getSiteConfig(platform);
+
     // Define pricing based on platform
     const pricing = {
       gnymble: {
         priceId: process.env.STRIPE_GNYMBLE_PRICE_ID || 'price_1OqX8X2eZvKYlo2C1QqX8X2e',
-        name: 'Gnymble Onboarding Plan',
-        description: 'Complete SMS platform for regulated industries'
+        name: `${getSiteConfig('gnymble').name} Onboarding Plan`,
+        description: getSiteConfig('gnymble').description
       },
       percymd: {
         priceId: process.env.STRIPE_PERCYMD_PRICE_ID || 'price_1OqX8X2eZvKYlo2C1QqX8X2e',
-        name: 'PercyMD Onboarding Plan',
-        description: 'HIPAA-compliant SMS for healthcare'
+        name: `${getSiteConfig('percymd').name} Onboarding Plan`,
+        description: getSiteConfig('percymd').description
       },
       percytext: {
         priceId: process.env.STRIPE_PERCYTEXT_PRICE_ID || 'price_1OqX8X2eZvKYlo2C1QqX8X2e',
-        name: 'PercyText Onboarding Plan',
-        description: 'Simple SMS for every business'
+        name: `${getSiteConfig('percytext').name} Onboarding Plan`,
+        description: getSiteConfig('percytext').description
       }
     };
 

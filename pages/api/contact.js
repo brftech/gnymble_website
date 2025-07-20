@@ -1,7 +1,5 @@
 import { logger } from '../../lib/logger';
-import { validateEnv, getEnvVar } from '../../lib/env';
 import { rateLimit } from '../../lib/rateLimit';
-import { validateContactForm, sanitizeContactForm } from '../../lib/validation';
 import { submitHubspotContact, sendNotificationEmail } from '../../lib/hubspot';
 
 // Apply rate limiting
@@ -25,30 +23,20 @@ async function handleContactForm(req, res) {
   }
 
   try {
-    // Sanitize and validate input
-    const sanitizedData = sanitizeContactForm(req.body);
-    const validation = validateContactForm(sanitizedData);
+    // Submit to HubSpot with full validation and processing
+    const hubspotResult = await submitHubspotContact(req.body, 'contact');
 
-    if (!validation.isValid) {
+    // Check for validation errors
+    if (!hubspotResult.success && hubspotResult.validationErrors) {
       return res.status(400).json({ 
         message: 'Validation failed',
-        errors: validation.errors
+        errors: hubspotResult.validationErrors
       });
     }
 
-    const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      company,
-      jobTitle,
-      message,
-      solutionInterest
-    } = sanitizedData;
-
     // Log the contact submission (for debugging)
     if (process.env.NODE_ENV === 'development') {
+      const { firstName, lastName, email, company, solutionInterest } = hubspotResult.data;
       console.log('Contact form submission:', {
         name: `${firstName} ${lastName}`,
         email,
@@ -58,13 +46,10 @@ async function handleContactForm(req, res) {
       });
     }
 
-    // Submit to HubSpot using shared utility
-    const hubspotResult = await submitHubspotContact(sanitizedData, 'contact');
-
     // Send notification email using shared utility
-    await sendNotificationEmail(sanitizedData, 'contact', {
-      solution: solutionInterest,
-      message: message.substring(0, 100) + '...'
+    await sendNotificationEmail(hubspotResult.data, 'contact', {
+      solution: hubspotResult.data.solutionInterest,
+      message: hubspotResult.data.message.substring(0, 100) + '...'
     });
 
     res.status(200).json({ 

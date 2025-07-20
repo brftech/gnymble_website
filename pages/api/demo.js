@@ -1,7 +1,5 @@
 import { logger } from '../../lib/logger';
-import { validateEnv, getEnvVar } from '../../lib/env';
 import { rateLimit } from '../../lib/rateLimit';
-import { validateDemoForm, sanitizeDemoForm } from '../../lib/validation';
 import { submitHubspotContact, sendNotificationEmail } from '../../lib/hubspot';
 
 // Apply rate limiting (more lenient in development)
@@ -25,36 +23,24 @@ async function handleDemoRequest(req, res) {
   }
 
   try {
-    // Sanitize and validate input
-    const sanitizedData = sanitizeDemoForm(req.body);
-    const validation = validateDemoForm(sanitizedData);
+    // Submit to HubSpot with full validation and processing
+    const hubspotResult = await submitHubspotContact(req.body, 'demo');
 
-    if (!validation.isValid) {
+    // Check for validation errors
+    if (!hubspotResult.success && hubspotResult.validationErrors) {
       return res.status(400).json({ 
         message: 'Validation failed',
-        errors: validation.errors
+        errors: hubspotResult.validationErrors
       });
     }
 
-    const {
-      firstName,
-      lastName,
-      email,
-      company,
-      phone,
-      industry,
-      useCase,
-      teamSize,
-      timeline
-    } = sanitizedData;
-
     // Log the demo request (for debugging)
     if (process.env.NODE_ENV === 'development') {
+      const { firstName, lastName, email, company, useCase } = hubspotResult.data;
       console.log('Demo request submission:', {
         name: `${firstName} ${lastName}`,
         email,
         company,
-        industry,
         useCase: useCase.substring(0, 100) + '...',
         timestamp: new Date().toISOString()
       });
@@ -62,21 +48,17 @@ async function handleDemoRequest(req, res) {
 
     // Log additional info for manual review
     logger.info('Demo request additional info', {
-      useCase,
-      teamSize,
-      timeline,
-      contactEmail: email
+      useCase: hubspotResult.data.useCase,
+      teamSize: hubspotResult.data.teamSize,
+      timeline: hubspotResult.data.timeline,
+      contactEmail: hubspotResult.data.email
     });
 
-    // Submit to HubSpot using shared utility
-    const hubspotResult = await submitHubspotContact(sanitizedData, 'demo');
-
     // Send notification email using shared utility
-    await sendNotificationEmail(sanitizedData, 'demo', {
-      industry,
-      useCase: useCase.substring(0, 100) + '...',
-      teamSize,
-      timeline
+    await sendNotificationEmail(hubspotResult.data, 'demo', {
+      useCase: hubspotResult.data.useCase.substring(0, 100) + '...',
+      teamSize: hubspotResult.data.teamSize,
+      timeline: hubspotResult.data.timeline
     });
 
     res.status(200).json({ 

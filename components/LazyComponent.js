@@ -21,7 +21,5 @@ export const LazyComponent = ({
   );
 };
 
-// Predefined lazy components for common use cases
-export const LazyContactForm = React.lazy(() => import('../pages/contact'));
-export const LazyDemoForm = React.lazy(() => import('../pages/demo'));
-export const LazyPricing = React.lazy(() => import('../pages/pricing')); 
+// Note: Lazy loading of pages is not supported in Next.js
+// Use the generic LazyComponent wrapper for actual React components instead 

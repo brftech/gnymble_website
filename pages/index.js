@@ -50,7 +50,7 @@ export default function GnymbleHome() {
       industry: "Premium Cigars & Pipes",
       logo: "/clientlogos/logo-ansteads.png",
       description: "Established 1975",
-      testimonial: "We'd been turned away by multiple SMS platforms because we sell tobacco. The first time we used Gnymble to publicize an event? We had a record turnout!"
+      testimonial: `We'd been turned away by multiple SMS platforms because we sell tobacco. The first time we used ${config.name} to publicize an event? We had a record turnout!`
     },
     { 
       name: "Emerson's Cigars", 
@@ -112,7 +112,7 @@ export default function GnymbleHome() {
               See Live Demo
             </a>
             <a
-              href="/signup?platform=gnymble"
+              href={`/signup?platform=${config.name.toLowerCase()}`}
               className="inline-block border-2 border-amber-700 text-amber-600 px-8 py-4 rounded-lg text-xl font-black hover:bg-amber-700 hover:text-white transition-all duration-300"
             >
               Start Free Trial
@@ -197,7 +197,7 @@ export default function GnymbleHome() {
               <p className="text-gray-400">Premium Cigars & Pipes</p>
             </div>
             <blockquote className="text-xl text-gray-300 text-center italic leading-relaxed">
-              "We'd been turned away by multiple SMS platforms because we sell tobacco. The first time we used Gnymble to publicize an event? We had a <span className="text-amber-400 font-bold">record turnout!</span>"
+              "We'd been turned away by multiple SMS platforms because we sell tobacco. The first time we used ${config.name} to publicize an event? We had a <span className="text-amber-400 font-bold">record turnout!</span>"
             </blockquote>
           </div>
         </div>
@@ -208,7 +208,7 @@ export default function GnymbleHome() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-black text-white mb-4">Real Messages That Drive Results</h2>
-            <p className="text-xl text-gray-300">See how our clients use Gnymble to promote events and drive sales</p>
+            <p className="text-xl text-gray-300">See how our clients use {config.name} to promote events and drive sales</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -332,7 +332,7 @@ export default function GnymbleHome() {
                 See Live Demo
               </a>
               <a
-                href="/signup?platform=gnymble"
+                href={`/signup?platform=${config.name.toLowerCase()}`}
                 className="inline-block border-2 border-white text-white px-8 py-4 rounded-lg text-xl font-black hover:bg-white hover:text-amber-700 transition-all duration-300"
               >
                 Start Free Trial
@@ -341,7 +341,7 @@ export default function GnymbleHome() {
           </div>
 
           <p className="text-gray-400 text-sm">
-            Over 500 cigar businesses trust Gnymble • PCA Preferred Partner • SOC 2 Certified
+            Over 500 cigar businesses trust {config.name} • PCA Preferred Partner • SOC 2 Certified
           </p>
         </div>
       </section>

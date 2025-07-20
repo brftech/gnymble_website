@@ -15,7 +15,7 @@ export default function GnymbleAbout() {
           </span>
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          Gnymble was originally developed for Dr. Fine at Percentric Physicians. Dr. Fine responded to patients' outcry to be able to text (without downloading an app).
+          {config.name} was originally developed for Dr. Fine at Percentric Physicians. Dr. Fine responded to patients' outcry to be able to text (without downloading an app).
         </p>
       </section>
 
@@ -33,7 +33,7 @@ export default function GnymbleAbout() {
               </p>
             </div>
             <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
-              <h3 className="text-2xl font-black mb-6 text-white">Why Gnymble?</h3>
+              <h3 className="text-2xl font-black mb-6 text-white">Why {config.name}?</h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <span className="text-amber-600 mr-3 mt-1">✓</span>
@@ -115,8 +115,8 @@ export default function GnymbleAbout() {
       <section className="py-16 px-6 bg-gradient-to-b from-transparent to-black/20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-black mb-6 text-white">Our Team</h2>
-          <p className="text-xl text-gray-300 mb-12">
-            Gnymble is powered by a team of experts in compliance, security, and enterprise technology.
+          <p className="text-gray-300 leading-relaxed mb-6">
+            {config.name} is powered by a team of experts in compliance, security, and enterprise technology.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -173,9 +173,9 @@ export default function GnymbleAbout() {
 
       {/* CTA Section */}
       <section className="py-20 text-center bg-gradient-to-r from-amber-700 to-amber-600 text-white">
-        <h2 className="text-4xl font-black mb-6">Ready to Experience Gnymble?</h2>
-        <p className="text-xl mb-8 opacity-90">
-          Join leading regulated industries using Gnymble for secure, compliant messaging.
+        <h2 className="text-4xl font-black mb-6">Ready to Experience {config.name}?</h2>
+        <p className="text-xl text-gray-300 mb-8">
+          Join leading regulated industries using {config.name} for secure, compliant messaging.
         </p>
         <a
           href="/contact"

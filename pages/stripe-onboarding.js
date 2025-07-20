@@ -55,13 +55,13 @@ export default function StripeOnboarding() {
               Secure Onboarding
             </span>
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white text-balance mb-6">
-            <span className="bg-gradient-to-r from-white to-amber-600 bg-clip-text text-transparent">
-              Start Your Gnymble Journey
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
+            <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
+              Start Your {config.name} Journey
             </span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Complete your secure onboarding to begin using Gnymble's compliance-first texting platform.
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
+            Complete your secure onboarding to begin using {config.name}'s compliance-first texting platform.
           </p>
         </div>
       </section>
@@ -119,7 +119,7 @@ export default function StripeOnboarding() {
                 <h3 className="text-lg font-bold text-white mb-2">Secure Payment Processing</h3>
                 <p className="text-gray-300 text-sm">
                   Your payment will be processed securely through Stripe. 
-                  You'll receive immediate access to your Gnymble account upon completion.
+                  You'll receive immediate access to your {config.name} account upon completion.
                 </p>
               </div>
 
@@ -152,7 +152,7 @@ export default function StripeOnboarding() {
       {/* Trust Indicators */}
       <section className="py-16 px-6 bg-gradient-to-b from-transparent to-black/20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-black text-white mb-8">Why Trust Gnymble?</h2>
+          <h2 className="text-3xl font-black text-white mb-8">Why Trust {config.name}?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20">
               <div className="w-12 h-12 bg-amber-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
@@ -189,9 +189,8 @@ export default function StripeOnboarding() {
       <section className="py-16 px-6">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl font-black text-white mb-6">Need Help?</h2>
-          <p className="text-lg text-gray-300 mb-8">
-            Our team is here to help you get started with Gnymble. 
-            Contact us for personalized support and guidance.
+          <p className="text-gray-300 mb-6">
+            Our team is here to help you get started with {config.name}.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/contact" className="inline-block border-2 border-orange-600 text-orange-600 px-6 py-3 rounded-lg text-lg font-black hover:bg-orange-600 hover:text-white transition-all duration-300">

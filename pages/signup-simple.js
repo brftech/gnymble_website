@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { getSiteConfig } from "@percytech/shared";
 
 export default function SimpleSignup() {
   const router = useRouter();
@@ -8,11 +9,17 @@ export default function SimpleSignup() {
   const [customerEmail, setCustomerEmail] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [config, setConfig] = useState(null);
 
   useEffect(() => {
     if (router.isReady) {
       const platformParam = router.query.platform || 'gnymble';
       setPlatform(platformParam);
+      
+      // Get site configuration
+      const siteConfig = getSiteConfig(platformParam);
+      setConfig(siteConfig);
+      
       setIsLoading(false);
     }
   }, [router.isReady, router.query.platform]);
@@ -56,7 +63,7 @@ export default function SimpleSignup() {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || !config) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-black to-gray-900 flex items-center justify-center">
         <div className="text-center">
@@ -74,7 +81,7 @@ export default function SimpleSignup() {
         <div className="container mx-auto flex justify-between items-center p-4">
           <div className="flex items-center">
             <a className="flex items-center" href="/">
-              <span className="text-2xl font-bold text-white">Gnymble</span>
+              <span className="text-2xl font-bold text-white">{config.name}</span>
             </a>
           </div>
           <div className="flex items-center gap-4">
@@ -198,7 +205,7 @@ export default function SimpleSignup() {
       {/* Footer */}
       <footer className="bg-black/40 backdrop-blur-sm text-gray-300 py-12 border-t border-amber-800/20">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-400 text-sm">© 2025 Percentric Technologies, LLC (Gnymble). All rights reserved.</p>
+          <p className="text-gray-400 text-sm">© 2025 Percentric Technologies, LLC ({config.name}). All rights reserved.</p>
         </div>
       </footer>
     </div>
