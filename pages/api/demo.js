@@ -26,40 +26,49 @@ async function handleDemoRequest(req, res) {
     // Submit to HubSpot with full validation and processing
     const hubspotResult = await submitHubspotContact(req.body, 'demo');
 
-    // Check for validation errors
-    if (!hubspotResult.success && hubspotResult.validationErrors) {
-      return res.status(400).json({ 
-        message: 'Validation failed',
-        errors: hubspotResult.validationErrors
-      });
+    // Check for validation errors or other failures
+    if (!hubspotResult.success) {
+      console.log('HubSpot result:', hubspotResult); // Debug log
+      if (hubspotResult.validationErrors) {
+        return res.status(400).json({ 
+          message: 'Validation failed',
+          errors: hubspotResult.validationErrors
+        });
+      } else {
+        return res.status(500).json({ 
+          message: hubspotResult.reason || 'Form submission failed',
+          error: hubspotResult.error
+        });
+      }
     }
 
     // Log the demo request (for debugging)
     if (process.env.NODE_ENV === 'development') {
-      const { firstName, lastName, email, company, useCase } = hubspotResult.data;
+      const { firstName, lastName, email, company, message } = hubspotResult.data;
       console.log('Demo request submission:', {
         name: `${firstName} ${lastName}`,
         email,
         company,
-        useCase: useCase.substring(0, 100) + '...',
+        message: message ? message.substring(0, 100) + '...' : 'No message',
         timestamp: new Date().toISOString()
       });
     }
 
     // Log additional info for manual review
     logger.info('Demo request additional info', {
-      useCase: hubspotResult.data.useCase,
-      teamSize: hubspotResult.data.teamSize,
-      timeline: hubspotResult.data.timeline,
+      message: hubspotResult.data.message,
       contactEmail: hubspotResult.data.email
     });
 
-    // Send notification email using shared utility
-    await sendNotificationEmail(hubspotResult.data, 'demo', {
-      useCase: hubspotResult.data.useCase.substring(0, 100) + '...',
-      teamSize: hubspotResult.data.teamSize,
-      timeline: hubspotResult.data.timeline
-    });
+    // Send notification email using shared utility (optional)
+    try {
+      await sendNotificationEmail(hubspotResult.data, 'demo', {
+        message: hubspotResult.data.message ? hubspotResult.data.message.substring(0, 100) + '...' : 'No message'
+      });
+    } catch (error) {
+      console.log('Notification email failed:', error.message);
+      // Continue without notification email
+    }
 
     res.status(200).json({ 
       message: 'Demo request submitted successfully',

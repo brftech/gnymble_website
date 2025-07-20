@@ -80,47 +80,29 @@ export default function GnymbleHome() {
 
   return (
     <PercyTechLayout siteName={config.name} siteDescription={config.description}>
-      {/* Updated Hero Section */}
-      <section className="relative bg-gradient-to-br from-black to-gray-900 pt-20 pb-16 px-6 text-center">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-amber-700/5 to-transparent pointer-events-none" />
-        
-        <div className="relative z-10">
-          <div className="inline-block mb-6">
-            <span className="bg-amber-800/30 text-amber-300 text-sm font-medium px-3 py-1 rounded-full border border-amber-700/40">
-              500+ Businesses Already Switched
-            </span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-white text-balance mb-6">
-            <span className="bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
-              Stop Getting BLOCKED
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
-              by SMS Platforms
-            </span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
-            The <strong>ONLY</strong> texting platform built for cigar lounges, retailers & manufacturers. 
-            No more bans. No more "tobacco restrictions." Just results.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-            <a
-              href="/demo"
-              className="inline-block bg-gradient-to-r from-amber-700 to-amber-600 text-white px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300"
-            >
-              See Live Demo
-            </a>
-            <a
-              href={`/signup?platform=${config.name.toLowerCase()}`}
-              className="inline-block border-2 border-amber-700 text-amber-600 px-8 py-4 rounded-lg text-xl font-black hover:bg-amber-700 hover:text-white transition-all duration-300"
-            >
-              Start Free Trial
-            </a>
-          </div>
-          <p className="text-sm text-gray-400">
-            ✓ 30-day money-back guarantee ✓ Setup in 24 hours ✓ Cancel anytime
-          </p>
+      {/* Hero Section */}
+      <section className="pt-20 pb-16 px-6 text-center">
+        <h1 className="text-6xl font-black leading-tight mb-6">
+          <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
+            Texting Without Barriers. Marketing Without Risk.
+          </span>
+        </h1>
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
+          Launch compliant SMS campaigns for tobacco, alcohol, and other regulated industries—approved 100% of the time.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href={`/signup?platform=${config.name.toLowerCase()}`}
+            className="inline-block bg-gradient-to-r from-amber-700 to-amber-600 text-white px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300"
+          >
+            Get Started →
+          </a>
+          <a
+            href="/demo"
+            className="inline-block border-2 border-amber-700 text-amber-600 px-8 py-4 rounded-lg text-xl font-black hover:bg-amber-700 hover:text-white transition-all duration-300"
+          >
+            Book a Demo
+          </a>
         </div>
       </section>
 

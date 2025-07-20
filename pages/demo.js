@@ -10,10 +10,12 @@ export default function GnymbleDemo() {
     email: '',
     company: '',
     phone: '',
+    jobTitle: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [validationErrors, setValidationErrors] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,8 +29,11 @@ export default function GnymbleDemo() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setValidationErrors({});
 
     try {
+      console.log('Submitting demo form data:', formData);
+      
       const response = await fetch('/api/demo', {
         method: 'POST',
         headers: {
@@ -36,6 +41,11 @@ export default function GnymbleDemo() {
         },
         body: JSON.stringify(formData),
       });
+
+      console.log('Demo response status:', response.status);
+      
+      const responseData = await response.json();
+      console.log('Demo response data:', responseData);
 
       if (response.ok) {
         setSubmitStatus('success');
@@ -45,13 +55,18 @@ export default function GnymbleDemo() {
           email: '',
           company: '',
           phone: '',
+          jobTitle: '',
           message: ''
         });
       } else {
+        console.error('Demo form submission failed:', responseData);
         setSubmitStatus('error');
+        if (responseData.errors) {
+          setValidationErrors(responseData.errors);
+        }
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Error submitting demo form:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -87,7 +102,12 @@ export default function GnymbleDemo() {
             
             {submitStatus === 'error' && (
               <div className="mb-6 p-4 bg-amber-900/20 border border-amber-700/30 rounded-lg">
-                <p className="text-amber-400 font-semibold">❌ There was an error submitting your request. Please try again or contact us directly.</p>
+                <p className="text-amber-400 font-semibold">❌ Please fix the following errors:</p>
+                <ul className="mt-2 text-amber-300 text-sm">
+                  {Object.entries(validationErrors).map(([field, error]) => (
+                    <li key={field}>• {error}</li>
+                  ))}
+                </ul>
               </div>
             )}
             
@@ -115,7 +135,7 @@ export default function GnymbleDemo() {
                 </div>
                 <div>
                   <label htmlFor="lastName" className="block text-sm font-semibold text-gray-300 mb-2">
-                    Last Name *
+                    Last Name
                   </label>
                   <input
                     type="text"
@@ -123,7 +143,6 @@ export default function GnymbleDemo() {
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
-                    required
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
                     placeholder="Your last name"
                   />
@@ -163,34 +182,48 @@ export default function GnymbleDemo() {
                 </div>
               </div>
 
-              {/* Row 3: Company */}
-              <div>
-                <label htmlFor="company" className="block text-sm font-semibold text-gray-300 mb-2">
-                  Company *
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
-                  placeholder="Your company name"
-                />
+              {/* Row 3: Company and Job Title */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="company" className="block text-sm font-semibold text-gray-300 mb-2">
+                    Company
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
+                    placeholder="Your company name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="jobTitle" className="block text-sm font-semibold text-gray-300 mb-2">
+                    Job Title
+                  </label>
+                  <input
+                    type="text"
+                    id="jobTitle"
+                    name="jobTitle"
+                    value={formData.jobTitle}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
+                    placeholder="Your job title"
+                  />
+                </div>
               </div>
 
               {/* Row 4: Message */}
               <div>
                 <label htmlFor="message" className="block text-sm font-semibold text-gray-300 mb-2">
-                  Tell us about your needs *
+                  Tell us about your needs
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  required
                   rows={4}
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors resize-none"
                   placeholder="Tell us about your SMS needs and compliance requirements..."

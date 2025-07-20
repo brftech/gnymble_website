@@ -16,6 +16,7 @@ export default function GnymbleContact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [validationErrors, setValidationErrors] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,8 +30,11 @@ export default function GnymbleContact() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setValidationErrors({});
 
     try {
+      console.log('Submitting form data:', formData);
+      
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -38,6 +42,11 @@ export default function GnymbleContact() {
         },
         body: JSON.stringify(formData),
       });
+
+      console.log('Response status:', response.status);
+      
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
 
       if (response.ok) {
         setSubmitStatus('success');
@@ -52,7 +61,11 @@ export default function GnymbleContact() {
           solutionInterest: config.name
         });
       } else {
+        console.error('Form submission failed:', responseData);
         setSubmitStatus('error');
+        if (responseData.errors) {
+          setValidationErrors(responseData.errors);
+        }
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -276,8 +289,12 @@ export default function GnymbleContact() {
 
                 {submitStatus === 'error' && (
                   <div className="bg-amber-900/20 border border-amber-700/20 rounded-lg p-4 text-amber-400">
-                    <p className="font-semibold">Failed to send message.</p>
-                    <p className="text-sm mt-1">Please try again or contact us directly.</p>
+                    <p className="font-semibold">Please fix the following errors:</p>
+                    <ul className="mt-2 text-amber-300 text-sm">
+                      {Object.entries(validationErrors).map(([field, error]) => (
+                        <li key={field}>• {error}</li>
+                      ))}
+                    </ul>
                   </div>
                 )}
               </form>

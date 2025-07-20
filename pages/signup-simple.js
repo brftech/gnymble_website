@@ -29,7 +29,7 @@ export default function SimpleSignup() {
       alert('Please enter your email address');
       return;
     }
-
+``
     setIsProcessing(true);
 
     try {

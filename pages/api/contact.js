@@ -26,12 +26,20 @@ async function handleContactForm(req, res) {
     // Submit to HubSpot with full validation and processing
     const hubspotResult = await submitHubspotContact(req.body, 'contact');
 
-    // Check for validation errors
-    if (!hubspotResult.success && hubspotResult.validationErrors) {
-      return res.status(400).json({ 
-        message: 'Validation failed',
-        errors: hubspotResult.validationErrors
-      });
+    // Check for validation errors or other failures
+    if (!hubspotResult.success) {
+      console.log('HubSpot result:', hubspotResult); // Debug log
+      if (hubspotResult.validationErrors) {
+        return res.status(400).json({ 
+          message: 'Validation failed',
+          errors: hubspotResult.validationErrors
+        });
+      } else {
+        return res.status(500).json({ 
+          message: hubspotResult.reason || 'Form submission failed',
+          error: hubspotResult.error
+        });
+      }
     }
 
     // Log the contact submission (for debugging)
@@ -46,11 +54,16 @@ async function handleContactForm(req, res) {
       });
     }
 
-    // Send notification email using shared utility
-    await sendNotificationEmail(hubspotResult.data, 'contact', {
-      solution: hubspotResult.data.solutionInterest,
-      message: hubspotResult.data.message.substring(0, 100) + '...'
-    });
+    // Send notification email using shared utility (optional)
+    try {
+      await sendNotificationEmail(hubspotResult.data, 'contact', {
+        solution: hubspotResult.data.solutionInterest,
+        message: hubspotResult.data.message.substring(0, 100) + '...'
+      });
+    } catch (error) {
+      console.log('Notification email failed:', error.message);
+      // Continue without notification email
+    }
 
     res.status(200).json({ 
       message: 'Contact form submitted successfully',
