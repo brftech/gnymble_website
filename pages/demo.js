@@ -20,6 +20,7 @@ export default function GnymbleDemo() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(`Field ${name} changed to:`, value);
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -28,26 +29,47 @@ export default function GnymbleDemo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form submitted!');
+    console.log('Form data:', formData);
+    
     setIsSubmitting(true);
     setSubmitStatus(null);
 
     try {
-      // TODO: Replace with actual demo request API
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-      setSubmitStatus('success');
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        company: '',
-        phone: '',
-        industry: '',
-        useCase: '',
-        teamSize: '',
-        timeline: ''
+      console.log('Sending request to /api/demo...');
+      const response = await fetch('/api/demo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
+
+      console.log('Response received:', response.status, response.statusText);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Demo request submitted successfully:', result);
+        setSubmitStatus('success');
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          company: '',
+          phone: '',
+          industry: '',
+          useCase: '',
+          teamSize: '',
+          timeline: ''
+        });
+      } else {
+        const errorData = await response.json();
+        console.error('Demo request failed:', errorData);
+        setSubmitStatus('error');
+      }
     } catch (error) {
-      // In a real app, you'd want to log this to a service
+      console.error('Demo request error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
