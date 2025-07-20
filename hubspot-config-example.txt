@@ -1,0 +1,24 @@
+# HubSpot Configuration Example
+# Copy this to .env.local and fill in your actual HubSpot credentials
+
+# Your HubSpot API Key (Private App Token)
+# Get this from HubSpot Settings > Account Setup > Integrations > Private Apps
+HUBSPOT_API_KEY=your_hubspot_api_key_here
+
+# Your HubSpot Portal ID
+# Found in your HubSpot account URL: https://app.hubspot.com/contacts/{PORTAL_ID}
+HUBSPOT_PORTAL_ID=your_portal_id_here
+
+# Your HubSpot Form ID (optional)
+# If you want to submit to a specific HubSpot form
+HUBSPOT_FORM_ID=your_form_id_here
+
+# Notification Email (optional)
+# Email address to receive notifications of new contact submissions
+NOTIFICATION_EMAIL=your_email@company.com
+
+# Instructions:
+# 1. Create a file called .env.local in the gnymble directory
+# 2. Copy the above variables and replace the placeholder values
+# 3. Restart your development server
+# 4. The contact form will now submit to HubSpot 

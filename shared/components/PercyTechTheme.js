@@ -1,4 +1,6 @@
 import React from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 // Shared PercyTech theme configuration
 export const PercyTechTheme = {
@@ -17,6 +19,12 @@ export const PercyTechTheme = {
       DEFAULT: '#0a0a0a',
       light: '#1a1a1a',
       lighter: '#2a2a2a'
+    },
+    // Gnymble-specific colors
+    gnymble: {
+      primary: '#FF6B35', // Orange
+      dark: '#E55A2B',
+      light: '#FF8A65'
     }
   },
   fonts: {
@@ -33,38 +41,94 @@ export const PercyTechTheme = {
 
 // Shared layout wrapper
 export const PercyTechLayout = ({ children, siteName = 'PercyTech', siteDescription = 'Smart SMS for Savvy Businesses' }) => {
+  const router = useRouter();
+  const isGnymble = siteName === 'Gnymble';
+  const primaryColor = isGnymble ? 'text-orange-600' : 'text-primary';
+  const borderColor = isGnymble ? 'border-orange-600/20' : 'border-primary/20';
+  const hoverColor = isGnymble ? 'hover:text-orange-600' : 'hover:text-primary';
+  const buttonGradient = isGnymble ? 'from-orange-600 to-orange-500' : 'from-primary to-primary-light';
+  const activeColor = isGnymble ? 'text-orange-600' : 'text-primary';
+  
+  // Function to check if current path matches
+  const isActive = (path) => {
+    if (router && router.pathname) {
+      return router.pathname === path;
+    }
+    return false;
+  };
+  
   return (
     <div className="font-sans text-secondary bg-gradient-to-br from-black to-gray-900 min-h-screen">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-primary/20">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md">
         <div className="container mx-auto flex justify-between items-center p-4">
-          <a href="/" className="text-2xl font-bold">
-            <span className="text-primary">{siteName.split('Percy')[0]}</span>
-            <span className="text-secondary">{siteName.split('Percy')[1] || 'Tech'}</span>
-          </a>
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center">
+              {isGnymble ? (
+                <span className="text-2xl font-bold text-white">Gnymble</span>
+              ) : (
+                <span className="text-2xl font-black text-white">
+                  {siteName}
+                </span>
+              )}
+            </Link>
+          </div>
           <nav className="hidden md:flex gap-8">
-            <a href="/" className="text-secondary hover:text-primary transition-colors relative group">
+            <a 
+              href="/" 
+              className={`transition-colors ${isActive('/') ? `${activeColor} font-semibold` : `text-white ${hoverColor}`}`}
+            >
               Home
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </a>
-            <a href="/pricing" className="text-secondary hover:text-primary transition-colors relative group">
+            <a 
+              href="/pricing" 
+              className={`transition-colors ${isActive('/pricing') ? `${activeColor} font-semibold` : `text-white ${hoverColor}`}`}
+            >
               Pricing
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </a>
-            <a href="/about" className="text-secondary hover:text-primary transition-colors relative group">
+            <a 
+              href="/about" 
+              className={`transition-colors ${isActive('/about') ? `${activeColor} font-semibold` : `text-white ${hoverColor}`}`}
+            >
               About
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </a>
-            <a href="/contact" className="text-secondary hover:text-primary transition-colors relative group">
+            <a 
+              href="/contact" 
+              className={`transition-colors ${isActive('/contact') ? `${activeColor} font-semibold` : `text-white ${hoverColor}`}`}
+            >
               Contact
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </a>
           </nav>
-          <a href="/demo" className="bg-gradient-to-r from-primary to-primary-light text-white px-6 py-3 rounded-lg font-semibold hover:scale-105 hover:shadow-lg transition-all duration-300">Get a Demo</a>
+          <a href="/contact" className={`bg-gradient-to-r ${buttonGradient} text-white px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300`}>
+            {isGnymble ? 'Get Started' : 'Get Started'}
+          </a>
         </div>
       </header>
       <main className="pt-20">{children}</main>
-      <footer className="bg-black/40 backdrop-blur-sm text-secondary text-center py-6 border-t border-primary/20">
+      <footer className="bg-black/40 backdrop-blur-sm text-secondary text-center py-6 border-t border-orange-800/20">
         <p>&copy; 2025 Percentric Technologies, LLC ({siteName}). All rights reserved.</p>
+        {isGnymble && (
+          <div className="mt-2 text-sm text-gray-400">
+            <p>
+              Powered by{' '}
+              <a 
+                href="https://percytech.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-orange-600 hover:text-orange-500 transition-colors"
+              >
+                PercyTech
+              </a>
+            </p>
+            <p className="mt-1">
+              <a 
+                href="/terms-of-use" 
+                className="text-orange-600 hover:text-orange-500 transition-colors"
+              >
+                Terms of Use
+              </a>
+            </p>
+          </div>
+        )}
       </footer>
     </div>
   );
@@ -78,18 +142,24 @@ export const PercyTechHero = ({
   ctaLink = "/demo",
   siteName = "PercyTech"
 }) => {
+  const isGnymble = siteName === 'Gnymble';
+  const buttonGradient = isGnymble ? 'from-orange-600 to-orange-500' : 'from-primary to-primary-light';
+  const titleGradient = isGnymble ? 'from-white to-orange-600' : 'from-white to-primary';
+  
   return (
     <section className="min-h-screen flex items-center py-20 px-4">
       <div className="container mx-auto max-w-4xl text-center space-y-8">
-        <h1 className="text-hero font-black gradient-text leading-tight">
-          {title}
+        <h1 className="text-6xl font-black leading-tight">
+          <span className={`bg-gradient-to-r ${titleGradient} bg-clip-text text-transparent`}>
+            {title}
+          </span>
         </h1>
-        <p className="text-xl text-secondary-dark max-w-3xl mx-auto leading-relaxed">
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
           {subtitle}
         </p>
         <a
           href={ctaLink}
-          className="inline-block bg-gradient-to-r from-primary to-primary-light text-white px-8 py-4 rounded-lg text-xl font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300"
+          className={`inline-block bg-gradient-to-r ${buttonGradient} text-white px-8 py-4 rounded-lg text-xl font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300`}
         >
           {ctaText}
         </a>

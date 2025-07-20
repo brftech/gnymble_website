@@ -116,11 +116,11 @@ export const PercyTechConfig = {
   gnymble: {
     name: 'Gnymble',
     domain: 'gnymble.com',
-    description: 'Texting for Industries Where Every Word Counts',
+    description: 'SMS Compliance for Regulated Industries',
     hero: {
-      title: 'Precision SMS for Regulated Industries',
-      subtitle: 'Built for compliance. Designed for bold brands. Gnymble delivers messaging solutions where every word matters.',
-      ctaText: 'Learn More',
+      title: 'SMS Compliance for Regulated Industries',
+      subtitle: 'Built for compliance. Designed for bold brands. Gnymble delivers secure messaging solutions where every word matters.',
+      ctaText: 'Get Demo',
       ctaLink: '/contact'
     },
     solutions: [
@@ -152,14 +152,14 @@ export const PercyTechConfig = {
         icon: '🔒'
       },
       {
-        title: 'Message Approval',
-        description: 'Multi-level approval workflows with compliance officer oversight.',
-        icon: '📋'
+        title: 'Message Approval Workflows',
+        description: 'Multi-level approval processes ensure compliance before messages are sent.',
+        icon: '✅'
       },
       {
-        title: 'Audit Trails',
-        description: 'Complete message history with timestamp and user tracking.',
-        icon: '📊'
+        title: 'Comprehensive Audit Trails',
+        description: 'Complete message history with user tracking and timestamp verification.',
+        icon: '📋'
       }
     ],
     industries: [
@@ -198,17 +198,7 @@ export const PercyTechConfig = {
       {
         title: 'Comprehensive Audit Trails',
         description: 'Complete message history with user tracking and timestamp verification.',
-        icon: '📝'
-      },
-      {
-        title: 'Real-Time Monitoring',
-        description: '24/7 monitoring and alerting for suspicious activity and compliance violations.',
-        icon: '⚡'
-      },
-      {
-        title: 'Automated Compliance',
-        description: 'Built-in compliance checks and automated reporting for regulatory requirements.',
-        icon: '🔄'
+        icon: '📋'
       }
     ]
   },
