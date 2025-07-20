@@ -12,7 +12,7 @@ export default function About() {
           <nav className="hidden md:flex gap-8">
             <a href="/" className="text-white hover:text-orange-700 transition-colors">Home</a>
             <div className="relative group">
-              <span className="text-white hover:text-orange-700 cursor-pointer transition-colors">Solutions</span>
+              <a href="/solutions" className="text-white hover:text-orange-700 cursor-pointer transition-colors">Solutions</a>
               <div className="absolute left-0 mt-2 bg-black/80 backdrop-blur-md shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-100 border border-orange-700/20">
                 <a href="https://percymd.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-orange-700/10 text-white hover:text-orange-700 transition-colors">PercyMD</a>
                 <a href="https://cigar.gnymble.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-orange-700/10 text-white hover:text-orange-700 transition-colors">Gnymble</a>
@@ -86,10 +86,13 @@ export default function About() {
                 </div>
               </div>
               <div className="flex flex-col items-center">
-                <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-orange-700 mb-4 bg-gradient-to-br from-orange-700 to-orange-600 flex items-center justify-center">
-                  <span className="text-white text-6xl font-bold">BRF</span>
+                <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-orange-700 mb-4">
+                  <img 
+                    src="/bfinemd_headshot.png" 
+                    alt="Bryan R. Fine, MD, MPH" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-
               </div>
             </div>
           </div>

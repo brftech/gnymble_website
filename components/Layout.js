@@ -14,10 +14,10 @@ export default function Layout({ children }) {
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </a>
             <div className="relative group">
-              <span className="text-secondary hover:text-primary cursor-pointer transition-colors relative">
+              <a href="/solutions" className="text-secondary hover:text-primary cursor-pointer transition-colors relative">
                 Solutions
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-              </span>
+              </a>
               <div className="absolute left-0 mt-2 bg-black/80 backdrop-blur-md shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-100 border border-primary/20">
                 <a href="https://percymd.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-primary/10 text-secondary hover:text-primary transition-colors">PercyMD</a>
                 <a href="https://cigar.gnymble.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-primary/10 text-secondary hover:text-primary transition-colors">Gnymble</a>

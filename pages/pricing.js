@@ -12,7 +12,7 @@ export default function Pricing() {
           <nav className="hidden md:flex gap-8">
             <a href="/" className="text-white hover:text-orange-700 transition-colors">Home</a>
             <div className="relative group">
-              <span className="text-white hover:text-orange-700 cursor-pointer transition-colors">Solutions</span>
+              <a href="/solutions" className="text-white hover:text-orange-700 cursor-pointer transition-colors">Solutions</a>
               <div className="absolute left-0 mt-2 bg-black/80 backdrop-blur-md shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-100 border border-orange-700/20">
                 <a href="https://percymd.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-orange-700/10 text-white hover:text-orange-700 transition-colors">PercyMD</a>
                 <a href="https://cigar.gnymble.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-orange-700/10 text-white hover:text-orange-700 transition-colors">Gnymble</a>
