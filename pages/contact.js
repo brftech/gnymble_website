@@ -67,13 +67,31 @@ export default function GnymbleContact() {
       {/* Hero Section */}
       <section className="pt-20 pb-16 px-6 text-center">
         <h1 className="text-6xl font-black leading-tight mb-6">
-          <span className="bg-gradient-to-r from-white to-orange-600 bg-clip-text text-transparent">
-            Get in Touch
+          <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
+            Contact Us
           </span>
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          Ready for enterprise-grade SMS? Let's discuss how Gnymble can help your regulated industry meet compliance requirements.
+          We love texting. We believe it's a powerful business communication tool.
         </p>
+      </section>
+
+      {/* Text Us Section */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
+            <h2 className="text-3xl font-black text-white mb-6">Text Us</h2>
+            <p className="text-xl text-gray-300 mb-8">
+              The fastest way to get in touch with us is through text messaging.
+            </p>
+            <a 
+              href="sms:757-447-0202" 
+              className="inline-block bg-white text-amber-700 px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300"
+            >
+              TEXT US at 757-447-0202
+            </a>
+          </div>
+        </div>
       </section>
 
       {/* Contact Form Section */}
@@ -81,8 +99,9 @@ export default function GnymbleContact() {
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-orange-600/20">
-              <h2 className="text-3xl font-black text-white mb-6">Send Us a Message</h2>
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
+              <h2 className="text-3xl font-black text-white mb-6">Or You Can Email Us</h2>
+              <p className="text-gray-300 mb-6">Enter your information below and we will reach out to you shortly.</p>
               
               {submitStatus === 'success' && (
                 <div className="mb-6 p-4 bg-green-900/20 border border-green-700/30 rounded-lg">
@@ -109,7 +128,7 @@ export default function GnymbleContact() {
                       value={formData.firstname}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-orange-600 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
                       placeholder="Your first name"
                     />
                   </div>
@@ -124,7 +143,7 @@ export default function GnymbleContact() {
                       value={formData.lastname}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-orange-600 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
                       placeholder="Your last name"
                     />
                   </div>
@@ -142,7 +161,7 @@ export default function GnymbleContact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-orange-600 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
                       placeholder="your.email@company.com"
                     />
                   </div>
@@ -156,7 +175,7 @@ export default function GnymbleContact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-orange-600 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
                       placeholder="(555) 123-4567"
                     />
                   </div>
@@ -174,7 +193,7 @@ export default function GnymbleContact() {
                       value={formData.company}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-orange-600 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
                       placeholder="Your company name"
                     />
                   </div>
@@ -188,7 +207,7 @@ export default function GnymbleContact() {
                       name="jobtitle"
                       value={formData.jobtitle}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-orange-600 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
                       placeholder="Your job title"
                     />
                   </div>
@@ -205,7 +224,7 @@ export default function GnymbleContact() {
                     onChange={handleInputChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-orange-600 focus:outline-none transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors resize-none"
                     placeholder="Tell us about your compliance requirements and how Gnymble can help..."
                   />
                 </div>
@@ -213,7 +232,7 @@ export default function GnymbleContact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white py-4 rounded-lg font-semibold hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-amber-700 to-amber-600 text-white py-4 rounded-lg font-semibold hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Sending...' : 'Contact Sales Team'}
                 </button>
@@ -222,71 +241,71 @@ export default function GnymbleContact() {
 
             {/* Contact Information */}
             <div className="space-y-8">
-              <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-orange-600/20">
+              <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
                 <h3 className="text-2xl font-black text-white mb-6">Why Choose Gnymble?</h3>
                 <ul className="space-y-4">
                   <li className="flex items-start">
-                    <span className="text-orange-600 mr-3 mt-1">✓</span>
+                    <span className="text-amber-600 mr-3 mt-1">✓</span>
                     <span className="text-gray-300">Enterprise-grade compliance for regulated industries</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-orange-600 mr-3 mt-1">✓</span>
+                    <span className="text-amber-600 mr-3 mt-1">✓</span>
                     <span className="text-gray-300">SOC 2 Type II certified security</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-orange-600 mr-3 mt-1">✓</span>
+                    <span className="text-amber-600 mr-3 mt-1">✓</span>
                     <span className="text-gray-300">Multi-level approval workflows</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-orange-600 mr-3 mt-1">✓</span>
+                    <span className="text-amber-600 mr-3 mt-1">✓</span>
                     <span className="text-gray-300">Complete audit trails and reporting</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-orange-600 mr-3 mt-1">✓</span>
+                    <span className="text-amber-600 mr-3 mt-1">✓</span>
                     <span className="text-gray-300">Dedicated compliance support</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-orange-600/20">
+              <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
                 <h3 className="text-2xl font-black text-white mb-6">Contact Information</h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-orange-600 mb-2">Sales Team</h4>
+                    <h4 className="font-semibold text-amber-600 mb-2">Sales Team</h4>
                     <p className="text-gray-300">sales@gnymble.com</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-orange-600 mb-2">Compliance Support</h4>
+                    <h4 className="font-semibold text-amber-600 mb-2">Compliance Support</h4>
                     <p className="text-gray-300">compliance@gnymble.com</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-orange-600 mb-2">Emergency Support</h4>
+                    <h4 className="font-semibold text-amber-600 mb-2">Emergency Support</h4>
                     <p className="text-gray-300">1-800-GNYMBLE</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-orange-600/20">
+              <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
                 <h3 className="text-2xl font-black text-white mb-6">Industries We Serve</h3>
                 <div className="space-y-3">
                   <div className="flex items-center">
-                    <span className="text-orange-600 mr-3">🏦</span>
+                    <span className="text-amber-600 mr-3">🏦</span>
                     <span className="text-gray-300">Financial Services</span>
                   </div>
                   <div className="flex items-center">
-                    <span className="text-orange-600 mr-3">🏥</span>
+                    <span className="text-amber-600 mr-3">🏥</span>
                     <span className="text-gray-300">Healthcare</span>
                   </div>
                   <div className="flex items-center">
-                    <span className="text-orange-600 mr-3">⚖️</span>
+                    <span className="text-amber-600 mr-3">⚖️</span>
                     <span className="text-gray-300">Legal & Professional</span>
                   </div>
                   <div className="flex items-center">
-                    <span className="text-orange-600 mr-3">🏭</span>
+                    <span className="text-amber-600 mr-3">🏭</span>
                     <span className="text-gray-300">Manufacturing</span>
                   </div>
                   <div className="flex items-center">
-                    <span className="text-orange-600 mr-3">🎯</span>
+                    <span className="text-amber-600 mr-3">🎯</span>
                     <span className="text-gray-300">Regulated Markets</span>
                   </div>
                 </div>

@@ -10,12 +10,12 @@ export default function GnymbleAbout() {
       {/* Hero Section */}
       <section className="pt-20 pb-16 px-6 text-center">
         <h1 className="text-6xl font-black leading-tight mb-6">
-          <span className="bg-gradient-to-r from-white to-orange-600 bg-clip-text text-transparent">
-            About Gnymble
+          <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
+            Our Story
           </span>
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          Built for compliance. Designed for bold brands. Gnymble delivers precision SMS solutions where every word matters.
+          Gnymble was originally developed for Dr. Fine at Percentric Physicians. Dr. Fine responded to patients' outcry to be able to text (without downloading an app).
         </p>
       </section>
 
@@ -26,34 +26,34 @@ export default function GnymbleAbout() {
             <div>
               <h2 className="text-4xl font-black mb-6 text-white">Our Mission</h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                Gnymble was founded with a simple mission: to provide enterprise-grade SMS solutions for industries where compliance, security, and brand control are non-negotiable.
+                Now, Percentric Physicians delivers medicine in an old-school way: a personal relationship with your doc, on a first name texting basis.
               </p>
               <p className="text-lg text-gray-400 leading-relaxed">
-                We understand that in regulated industries, every message carries weight. That's why we've built a platform that combines cutting-edge technology with unwavering commitment to compliance and security.
+                We believe it's a powerful business communication tool that bridges the gap between traditional communication methods and modern convenience.
               </p>
             </div>
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-orange-600/20">
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
               <h3 className="text-2xl font-black mb-6 text-white">Why Gnymble?</h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <span className="text-orange-600 mr-3 mt-1">✓</span>
-                  <span className="text-gray-300">Built specifically for regulated industries</span>
+                  <span className="text-amber-600 mr-3 mt-1">✓</span>
+                  <span className="text-gray-300">No app download required</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-orange-600 mr-3 mt-1">✓</span>
-                  <span className="text-gray-300">SOC 2 Type II certified security</span>
+                  <span className="text-amber-600 mr-3 mt-1">✓</span>
+                  <span className="text-gray-300">Personal relationship with your provider</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-orange-600 mr-3 mt-1">✓</span>
-                  <span className="text-gray-300">Multi-level approval workflows</span>
+                  <span className="text-amber-600 mr-3 mt-1">✓</span>
+                  <span className="text-gray-300">First name texting basis</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-orange-600 mr-3 mt-1">✓</span>
-                  <span className="text-gray-300">Complete audit trails and reporting</span>
+                  <span className="text-amber-600 mr-3 mt-1">✓</span>
+                  <span className="text-gray-300">Powerful business communication tool</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-orange-600 mr-3 mt-1">✓</span>
-                  <span className="text-gray-300">Dedicated compliance support</span>
+                  <span className="text-amber-600 mr-3 mt-1">✓</span>
+                  <span className="text-gray-300">Built for real-world needs</span>
                 </li>
               </ul>
             </div>
@@ -97,7 +97,7 @@ export default function GnymbleAbout() {
           <h2 className="text-4xl font-black mb-12 text-center text-white">Industries We Serve</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {config.industries.map((industry, index) => (
-              <div key={index} className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-orange-600/20">
+              <div key={index} className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
                 <h3 className="text-2xl font-black mb-4 text-white">{industry.title}</h3>
                 <p className="text-gray-300 mb-6">{industry.description}</p>
                 <ul className="space-y-2">
@@ -120,7 +120,7 @@ export default function GnymbleAbout() {
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-orange-600/20">
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
               <h3 className="text-2xl font-black mb-4 text-white">Compliance Experts</h3>
               <p className="text-gray-300 mb-6">
                 Our compliance team includes former regulators and industry experts who understand the complex requirements of regulated industries.
@@ -132,7 +132,7 @@ export default function GnymbleAbout() {
               </ul>
             </div>
             
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-orange-600/20">
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
               <h3 className="text-2xl font-black mb-4 text-white">Security Engineers</h3>
               <p className="text-gray-300 mb-6">
                 Our security team brings decades of experience in enterprise security, encryption, and threat prevention.
@@ -152,19 +152,19 @@ export default function GnymbleAbout() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-black text-orange-600 mb-2">99.9%</div>
+              <div className="text-4xl font-black text-amber-600 mb-2">99.9%</div>
               <div className="text-gray-300">Uptime</div>
             </div>
             <div>
-              <div className="text-4xl font-black text-orange-600 mb-2">24/7</div>
+              <div className="text-4xl font-black text-amber-600 mb-2">24/7</div>
               <div className="text-gray-300">Support</div>
             </div>
             <div>
-              <div className="text-4xl font-black text-orange-600 mb-2">SOC 2</div>
+              <div className="text-4xl font-black text-amber-600 mb-2">SOC 2</div>
               <div className="text-gray-300">Certified</div>
             </div>
             <div>
-              <div className="text-4xl font-black text-orange-600 mb-2">100+</div>
+              <div className="text-4xl font-black text-amber-600 mb-2">100+</div>
               <div className="text-gray-300">Enterprise Clients</div>
             </div>
           </div>
@@ -172,14 +172,14 @@ export default function GnymbleAbout() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 text-center bg-gradient-to-r from-orange-600 to-orange-500 text-white">
+      <section className="py-20 text-center bg-gradient-to-r from-amber-700 to-amber-600 text-white">
         <h2 className="text-4xl font-black mb-6">Ready to Experience Gnymble?</h2>
         <p className="text-xl mb-8 opacity-90">
           Join leading regulated industries using Gnymble for secure, compliant messaging.
         </p>
         <a
           href="/contact"
-          className="inline-block bg-white text-orange-600 px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300"
+          className="inline-block bg-white text-amber-700 px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300"
         >
           Contact Sales Team
         </a>

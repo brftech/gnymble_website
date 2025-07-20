@@ -1,9 +1,40 @@
+import { logger } from '../../lib/logger';
+import { validateEnv, getEnvVar } from '../../lib/env';
+import { rateLimit } from '../../lib/rateLimit';
+import { validateContactForm, sanitizeContactForm } from '../../lib/validation';
+
+// Apply rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5 // limit each IP to 5 contact form submissions per 15 minutes
+});
+
 export default async function handler(req, res) {
+  // Apply rate limiting
+  return new Promise((resolve) => {
+    limiter(req, res, () => {
+      handleContactForm(req, res).then(resolve);
+    });
+  });
+}
+
+async function handleContactForm(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
   try {
+    // Sanitize and validate input
+    const sanitizedData = sanitizeContactForm(req.body);
+    const validation = validateContactForm(sanitizedData);
+
+    if (!validation.isValid) {
+      return res.status(400).json({ 
+        message: 'Validation failed',
+        errors: validation.errors
+      });
+    }
+
     const {
       firstname,
       lastname,
@@ -13,26 +44,23 @@ export default async function handler(req, res) {
       jobtitle,
       message,
       solution_interest
-    } = req.body;
-
-    // Validate required fields
-    if (!firstname || !lastname || !email || !message) {
-      return res.status(400).json({ message: 'Missing required fields' });
-    }
+    } = sanitizedData;
 
     // Log the contact submission (for debugging)
-    console.log('Contact form submission:', {
-      name: `${firstname} ${lastname}`,
-      email,
-      company,
-      solution: solution_interest,
-      timestamp: new Date().toISOString()
-    });
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Contact form submission:', {
+        name: `${firstname} ${lastname}`,
+        email,
+        company,
+        solution: solution_interest,
+        timestamp: new Date().toISOString()
+      });
+    }
 
     // HubSpot API configuration
-    const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
-    const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID;
-    const HUBSPOT_FORM_ID = process.env.HUBSPOT_FORM_ID;
+    const HUBSPOT_API_KEY = getEnvVar('HUBSPOT_API_KEY');
+    const HUBSPOT_PORTAL_ID = getEnvVar('HUBSPOT_PORTAL_ID');
+    const HUBSPOT_FORM_ID = getEnvVar('HUBSPOT_FORM_ID');
 
     // If HubSpot is configured, try to submit
     if (HUBSPOT_API_KEY) {
@@ -65,10 +93,10 @@ export default async function handler(req, res) {
 
         if (contactResponse.ok) {
           const contactResult = await contactResponse.json();
-          console.log('Contact created in HubSpot:', contactResult.id);
+          logger.info('Contact created in HubSpot', { id: contactResult.id });
         } else {
           const errorData = await contactResponse.text();
-          console.error('HubSpot contact creation failed:', errorData);
+          logger.error('HubSpot contact creation failed', { error: errorData });
         }
 
         // If you have a HubSpot form, also submit to the form
@@ -94,16 +122,16 @@ export default async function handler(req, res) {
             }
           );
 
-          if (!formResponse.ok) {
-            console.warn('HubSpot form submission failed, but contact was created');
-          }
+                  if (!formResponse.ok) {
+          logger.warn('HubSpot form submission failed, but contact was created');
+        }
         }
       } catch (hubspotError) {
-        console.error('HubSpot integration error:', hubspotError);
+        logger.error('HubSpot integration error', { error: hubspotError });
         // Continue with success response even if HubSpot fails
       }
     } else {
-      console.log('HubSpot not configured - contact logged only');
+      logger.info('HubSpot not configured - contact logged only');
     }
 
     // Send notification email (optional)
@@ -127,7 +155,7 @@ export default async function handler(req, res) {
           }),
         });
       } catch (emailError) {
-        console.warn('Failed to send notification email:', emailError);
+        logger.warn('Failed to send notification email', { error: emailError });
       }
     }
 
@@ -137,7 +165,7 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Contact form submission error:', error);
+    logger.error('Contact form submission error', { error });
     res.status(500).json({ 
       message: 'Failed to submit contact form. Please try again or contact us directly.' 
     });
