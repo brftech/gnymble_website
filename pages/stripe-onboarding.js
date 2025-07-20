@@ -1,9 +1,46 @@
-import React from 'react';
-import { PercyTechLayout } from "../shared/components/PercyTechTheme";
-import { getSiteConfig } from "../shared/config/PercyTechConfig";
+import React, { useState } from 'react';
+import { PercyTechLayout } from "@percytech/shared";
+import { getSiteConfig } from "@percytech/shared";
 
 export default function StripeOnboarding() {
   const config = getSiteConfig("gnymble");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleStripeCheckout = async () => {
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/stripe/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          platform: 'gnymble',
+          customerEmail: '', // Will be collected by Stripe
+          successUrl: `${window.location.origin}/success`,
+          cancelUrl: `${window.location.origin}/pricing`,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to create checkout session');
+      }
+
+      // Redirect to Stripe Checkout
+      window.location.href = data.url;
+
+    } catch (error) {
+      console.error('Stripe checkout error:', error);
+      setError('Failed to start checkout process. Please try again or contact support.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <PercyTechLayout siteName={config.name} siteDescription={config.description}>
@@ -19,7 +56,7 @@ export default function StripeOnboarding() {
             </span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white text-balance mb-6">
-            <span className="bg-gradient-to-r from-white to-orange-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white to-amber-600 bg-clip-text text-transparent">
               Start Your Gnymble Journey
             </span>
           </h1>
@@ -41,35 +78,35 @@ export default function StripeOnboarding() {
             </div>
 
             {/* Onboarding Plan Summary */}
-            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 mb-8 border border-orange-700/20">
-              <h3 className="text-xl font-bold text-white mb-4">Onboarding Plan - $179/month</h3>
+                          <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 mb-8 border border-amber-700/20">
+                              <h3 className="text-xl font-bold text-white mb-4">Onboarding Plan - $179</h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-center">
-                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  <span className="text-amber-600 mr-3 text-lg">✓</span>
                   All regulatory SMS fees included
                 </li>
                 <li className="flex items-center">
-                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  <span className="text-amber-600 mr-3 text-lg">✓</span>
                   Complete training and onboarding support
                 </li>
                 <li className="flex items-center">
-                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  <span className="text-amber-600 mr-3 text-lg">✓</span>
                   1 dedicated phone number
                 </li>
                 <li className="flex items-center">
-                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  <span className="text-amber-600 mr-3 text-lg">✓</span>
                   Up to 500 contacts
                 </li>
                 <li className="flex items-center">
-                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  <span className="text-amber-600 mr-3 text-lg">✓</span>
                   Up to 1,500 messages per month
                 </li>
                 <li className="flex items-center">
-                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  <span className="text-amber-600 mr-3 text-lg">✓</span>
                   Text-centered customer support
                 </li>
                 <li className="flex items-center">
-                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  <span className="text-amber-600 mr-3 text-lg">✓</span>
                   Compliance monitoring and reporting
                 </li>
               </ul>
@@ -77,8 +114,8 @@ export default function StripeOnboarding() {
 
             {/* Stripe Integration Placeholder */}
             <div className="text-center">
-              <div className="bg-orange-600/20 border border-orange-600/30 rounded-lg p-6 mb-6">
-                <div className="text-orange-400 text-2xl mb-3">🔒</div>
+              <div className="bg-amber-600/20 border border-amber-600/30 rounded-lg p-6 mb-6">
+                <div className="text-amber-400 text-2xl mb-3">🔒</div>
                 <h3 className="text-lg font-bold text-white mb-2">Secure Payment Processing</h3>
                 <p className="text-gray-300 text-sm">
                   Your payment will be processed securely through Stripe. 
@@ -86,15 +123,20 @@ export default function StripeOnboarding() {
                 </p>
               </div>
 
-              {/* Placeholder for Stripe Checkout Button */}
+              {/* Error Message */}
+              {error && (
+                <div className="mb-4 p-4 bg-red-900/20 border border-red-700/30 rounded-lg">
+                  <p className="text-red-400 text-sm">{error}</p>
+                </div>
+              )}
+
+              {/* Stripe Checkout Button */}
               <button 
-                className="w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300 mb-4"
-                onClick={() => {
-                  // TODO: Replace with actual Stripe Checkout integration
-                  alert('Stripe Checkout integration will be implemented here. This will redirect to Stripe to complete the payment.');
-                }}
+                className="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-white px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300 mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={handleStripeCheckout}
+                disabled={isLoading}
               >
-                Proceed to Secure Checkout
+                {isLoading ? 'Processing...' : 'Proceed to Secure Checkout'}
               </button>
 
               <div className="text-sm text-gray-400">
@@ -112,27 +154,27 @@ export default function StripeOnboarding() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-black text-white mb-8">Why Trust Gnymble?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-orange-700/20">
-              <div className="w-12 h-12 bg-orange-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <span className="text-orange-400 text-2xl">🛡️</span>
+            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20">
+              <div className="w-12 h-12 bg-amber-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <span className="text-amber-400 text-2xl">🛡️</span>
               </div>
               <h3 className="text-xl font-bold text-white mb-3">SOC 2 Type II Certified</h3>
               <p className="text-gray-300">
                 Enterprise-grade security with end-to-end encryption and comprehensive audit trails.
               </p>
             </div>
-            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-orange-700/20">
-              <div className="w-12 h-12 bg-orange-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <span className="text-orange-400 text-2xl">💰</span>
+            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20">
+              <div className="w-12 h-12 bg-amber-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <span className="text-amber-400 text-2xl">💰</span>
               </div>
               <h3 className="text-xl font-bold text-white mb-3">No Hidden Fees</h3>
               <p className="text-gray-300">
                 All regulatory SMS fees included. No surprise charges or additional compliance costs.
               </p>
             </div>
-            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-orange-700/20">
-              <div className="w-12 h-12 bg-orange-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <span className="text-orange-400 text-2xl">🎯</span>
+            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20">
+              <div className="w-12 h-12 bg-amber-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <span className="text-amber-400 text-2xl">🎯</span>
               </div>
               <h3 className="text-xl font-bold text-white mb-3">Proven Results</h3>
               <p className="text-gray-300">

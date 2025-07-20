@@ -1,14 +1,14 @@
 // TypeScript type definitions for Gnymble application
 
 export interface ContactFormData {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone?: string;
   company?: string;
-  jobtitle?: string;
+  jobTitle?: string;
   message: string;
-  solution_interest?: string;
+  solutionInterest?: string;
 }
 
 export interface DemoFormData {

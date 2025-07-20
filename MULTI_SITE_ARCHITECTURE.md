@@ -8,61 +8,92 @@ This architecture allows you to build multiple PercyTech sites (PercyTech, Percy
 - ✅ **Shared components** and styling
 - ✅ **Centralized configuration**
 - ✅ **Easy maintenance** and updates
+- ✅ **True shared package** with proper dependency management
 
 ## 📁 **File Structure**
 
 ```
 /Users/bryan/Desktop/PT/Websites/
-├── percytech_fullsite/          # Main PercyTech site (port 3000)
-├── percytech-template/          # Template (port 3001)
-├── percytext/                   # PercyText site (port 3002)
-├── percymd/                     # PercyMD site (port 3003)
-├── gnymble/                     # Gnymble site (port 3004)
-└── shared/                      # Shared resources
-    ├── components/
-    │   └── PercyTechTheme.js    # Shared React components
-    ├── config/
-    │   └── PercyTechConfig.js   # Site-specific configurations
-    └── styles/
-        └── PercyTechGlobal.css  # Shared styles
+├── percytech/                    # Main PercyTech site (port 3000)
+├── percytext/                    # PercyText site (port 3002)
+├── percymd/                      # PercyMD site (port 3003)
+├── gnymble/                      # Gnymble site (port 3004)
+├── cigar-gnymble/                # Cigar Gnymble site
+└── shared-package/               # 🆕 True shared package
+    ├── src/
+    │   ├── components/
+    │   │   └── PercyTechTheme.jsx # Shared React components
+    │   ├── config/
+    │   │   └── PercyTechConfig.js # Site configurations
+    │   ├── styles/
+    │   │   └── PercyTechGlobal.css # Shared styles
+    │   ├── types/
+    │   │   └── index.ts           # TypeScript type definitions
+    │   └── index.ts               # Main exports
+    ├── dist/                      # Built files
+    ├── package.json               # Package configuration
+    ├── tsconfig.json              # TypeScript config
+    ├── rollup.config.js           # Build configuration
+    └── README.md                  # Package documentation
 ```
 
 ## 🎯 **How It Works**
 
-### **1. Shared Components (`shared/components/PercyTechTheme.js`)**
+### **1. Shared Package (`shared-package/`)**
+
+The new shared package provides:
+
+- **Proper dependency management** with npm package structure
+- **TypeScript support** with type definitions
+- **Build system** using Rollup for optimal bundling
+- **Version control** and semantic versioning
+- **Easy installation** via npm link or file dependencies
+
+### **2. Shared Components (`shared-package/src/components/PercyTechTheme.jsx`)**
 
 - **PercyTechLayout**: Consistent header, navigation, and footer
 - **PercyTechHero**: Reusable hero section with customizable content
 - **PercyTechSolutions**: Standardized solutions grid
 - **PercyTechTheme**: Design tokens and configuration
 
-### **2. Centralized Configuration (`shared/config/PercyTechConfig.js`)**
+### **3. Centralized Configuration (`shared-package/src/config/PercyTechConfig.js`)**
 
 - **Site-specific content**: Each site has its own hero, solutions, features
 - **Shared theme**: Colors, fonts, animations used across all sites
 - **Helper functions**: `getSiteConfig()`, `getThemeConfig()`
 
-### **3. Shared Styles (`shared/styles/PercyTechGlobal.css`)**
+### **4. Type Definitions (`shared-package/src/types/index.ts`)**
 
-- **Consistent styling**: Same Tailwind classes and custom CSS
-- **Animations**: Shared keyframes and transitions
-- **Responsive design**: Unified breakpoints and layouts
+- **ContactFormData**: Contact form interface
+- **DemoFormData**: Demo form interface
+- **SiteConfig**: Site configuration interface
+- **ApiResponse**: API response interface
+- **NextApiRequest/Response**: Next.js API types
 
 ## 🚀 **Creating a New Site**
 
-### **Step 1: Create from Template**
+### **Step 1: Create New Site Directory**
 
 ```bash
 # Create new site
-cp -r percytech-template your-new-site
+mkdir your-new-site
 cd your-new-site
-./setup.sh your-new-site-name
-npm install
+npm init -y
 ```
 
-### **Step 2: Configure Site Content**
+### **Step 2: Install Dependencies**
 
-Edit `shared/config/PercyTechConfig.js` to add your site:
+```bash
+# Install Next.js and other dependencies
+npm install next react react-dom
+
+# Install shared package
+npm install file:../shared-package
+```
+
+### **Step 3: Configure Site Content**
+
+Edit `shared-package/src/config/PercyTechConfig.js` to add your site:
 
 ```javascript
 yournewsite: {
@@ -81,21 +112,20 @@ yournewsite: {
 }
 ```
 
-### **Step 3: Create Homepage**
+### **Step 4: Create Homepage**
 
 ```javascript
-import {
-  PercyTechLayout,
-  PercyTechHero,
-  PercyTechSolutions,
-} from "../../shared/components/PercyTechTheme";
-import { getSiteConfig } from "../../shared/config/PercyTechConfig";
+import { PercyTechLayout, PercyTechHero } from "@percytech/shared";
+import { getSiteConfig } from "@percytech/shared";
 
 export default function YourNewSiteHome() {
   const config = getSiteConfig("yournewsite");
 
   return (
-    <PercyTechLayout siteName={config.name}>
+    <PercyTechLayout
+      siteName={config.name}
+      siteDescription={config.description}
+    >
       <PercyTechHero
         title={config.hero.title}
         subtitle={config.hero.subtitle}
@@ -109,7 +139,7 @@ export default function YourNewSiteHome() {
 }
 ```
 
-### **Step 4: Start Development**
+### **Step 5: Start Development**
 
 ```bash
 npm run dev -- -p 3005  # Use different port
@@ -119,21 +149,24 @@ npm run dev -- -p 3005  # Use different port
 
 ### **Updating Shared Components**
 
-1. **Edit** `shared/components/PercyTechTheme.js`
-2. **Changes apply** to all sites automatically
-3. **Test** each site to ensure compatibility
+1. **Edit** files in `shared-package/src/`
+2. **Build** the package: `cd shared-package && npm run build`
+3. **Changes apply** to all sites automatically
+4. **Test** each site to ensure compatibility
 
 ### **Updating Site Content**
 
-1. **Edit** `shared/config/PercyTechConfig.js`
+1. **Edit** `shared-package/src/config/PercyTechConfig.js`
 2. **Changes apply** to specific sites
 3. **No code changes** needed in individual sites
 
 ### **Adding New Features**
 
-1. **Create** new shared component in `shared/components/`
-2. **Add** configuration in `shared/config/PercyTechConfig.js`
-3. **Import** and use in individual sites
+1. **Create** new shared component in `shared-package/src/components/`
+2. **Add** configuration in `shared-package/src/config/PercyTechConfig.js`
+3. **Export** from `shared-package/src/index.ts`
+4. **Build** the package: `npm run build`
+5. **Import** and use in individual sites
 
 ## 🌐 **Current Sites**
 
@@ -157,7 +190,7 @@ npm run dev -- -p 3005  # Use different port
 
 ### **Gnymble**
 
-- **URL**: http://localhost:3004 (when created)
+- **URL**: http://localhost:3004
 - **Purpose**: Regulated industry SMS
 - **Content**: Compliance, brand control, enterprise security
 
@@ -180,22 +213,22 @@ npm run dev -- -p 3005  # Use different port
 ## 🔧 **Development Commands**
 
 ```bash
+# Build shared package
+cd shared-package
+npm run build
+
 # Start all sites
-npm run dev                    # PercyTech (3000)
-cd percytech-template && npm run dev -- -p 3001  # Template
-cd percytext && npm run dev -- -p 3002           # PercyText
-cd percymd && npm run dev -- -p 3003             # PercyMD
-cd gnymble && npm run dev -- -p 3004             # Gnymble
+cd ../percytech && npm run dev                    # PercyTech (3000)
+cd ../percytext && npm run dev -- -p 3002         # PercyText
+cd ../percymd && npm run dev -- -p 3003           # PercyMD
+cd ../gnymble && npm run dev -- -p 3004           # Gnymble
 
-# Sync template with main site
-./sync-template.sh
-
-# Create new site
-cp -r percytech-template your-site
-cd your-site
-./setup.sh your-site-name
-npm install
-npm run dev -- -p 3005
+# Update shared package in all sites
+cd ../shared-package && npm run build
+cd ../percytech && npm install file:../shared-package
+cd ../percytext && npm install file:../shared-package
+cd ../percymd && npm install file:../shared-package
+cd ../gnymble && npm install file:../shared-package
 ```
 
 ## 📝 **Best Practices**
@@ -205,11 +238,80 @@ npm run dev -- -p 3005
 3. **Test all sites** when updating shared components
 4. **Use semantic naming** for site configurations
 5. **Keep individual sites lightweight** by leveraging shared resources
+6. **Build shared package** before testing changes
+7. **Use TypeScript** for better type safety
 
-## 🚀 **Benefits**
+## 🚀 **Benefits of New Architecture**
 
-- ✅ **Consistent branding** across all sites
-- ✅ **Faster development** with reusable components
-- ✅ **Easier maintenance** with centralized configuration
-- ✅ **Scalable architecture** for adding new sites
-- ✅ **Cost-effective** development and hosting
+- ✅ **True dependency management** with proper package structure
+- ✅ **Type safety** with TypeScript definitions
+- ✅ **Optimized builds** with Rollup bundling
+- ✅ **Version control** and semantic versioning
+- ✅ **Easy installation** and updates
+- ✅ **Better IDE support** with proper imports
+- ✅ **Reduced bundle size** with tree shaking
+- ✅ **Consistent API** across all sites
+
+## 🔄 **Migration from Old Architecture**
+
+### **For Existing Sites**
+
+1. **Install shared package**:
+
+   ```bash
+   npm install file:../shared-package
+   ```
+
+2. **Update imports**:
+
+   ```javascript
+   // Before
+   import { PercyTechLayout } from "../shared/components/PercyTechTheme";
+   import { getSiteConfig } from "../shared/config/PercyTechConfig";
+
+   // After
+   import { PercyTechLayout, getSiteConfig } from "@percytech/shared";
+   ```
+
+3. **Remove local shared folders**:
+
+   ```bash
+   rm -rf shared/
+   ```
+
+4. **Test the site** to ensure everything works
+
+### **For New Sites**
+
+1. **Create site directory**
+2. **Install dependencies** including shared package
+3. **Use shared components** from the start
+4. **Configure site content** in shared config
+
+## 📋 **Available Exports**
+
+### **Components**
+
+- `PercyTechLayout` - Main layout component
+- `PercyTechHero` - Hero section component
+
+### **Configuration**
+
+- `getSiteConfig(siteName)` - Get site configuration
+- `getThemeConfig()` - Get theme configuration
+
+### **Types**
+
+- `SiteConfig` - Site configuration interface
+- `ContactFormData` - Contact form data interface
+- `DemoFormData` - Demo form data interface
+- `ApiResponse` - API response interface
+- `NextApiRequest/Response` - Next.js API types
+
+## 🎯 **Future Enhancements**
+
+- **Monorepo setup** with Lerna or Nx
+- **Automated testing** for shared components
+- **Storybook** for component documentation
+- **CI/CD pipeline** for automated builds
+- **Private npm registry** for production deployment

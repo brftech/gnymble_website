@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { getSiteConfig } from "@percytech/shared";
 
 export default function OnboardingSignup() {
   const [platform, setPlatform] = useState('gnymble');
   const [discountCode, setDiscountCode] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [config, setConfig] = useState(null);
 
   useEffect(() => {
     // Get platform from URL query parameter
@@ -12,6 +14,10 @@ export default function OnboardingSignup() {
       const urlParams = new URLSearchParams(window.location.search);
       const platformParam = urlParams.get('platform') || 'gnymble';
       setPlatform(platformParam);
+      
+      // Get site configuration
+      const siteConfig = getSiteConfig(platformParam);
+      setConfig(siteConfig);
     }
   }, []);
 
@@ -75,6 +81,17 @@ export default function OnboardingSignup() {
     }
   };
 
+  if (!config) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-black to-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-700 mx-auto mb-4"></div>
+          <p className="text-gray-300">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black to-gray-900">
       {/* Header */}
@@ -82,7 +99,7 @@ export default function OnboardingSignup() {
         <div className="container mx-auto flex justify-between items-center p-4">
           <div className="flex items-center">
             <a className="flex items-center" href="/">
-              <span className="text-2xl font-bold text-white">Gnymble</span>
+              <span className="text-2xl font-bold text-white">{config.name}</span>
             </a>
           </div>
           <div className="flex items-center gap-4">
@@ -100,13 +117,13 @@ export default function OnboardingSignup() {
               Onboarding Signup
             </span>
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white text-balance mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
             <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
-              Start Your {platform.charAt(0).toUpperCase() + platform.slice(1)} Journey
+              Welcome to {config.name}
             </span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Complete your onboarding signup to begin using {platform.charAt(0).toUpperCase() + platform.slice(1)}'s powerful SMS platform.
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
+            {config.description}
           </p>
         </div>
       </section>
@@ -114,174 +131,116 @@ export default function OnboardingSignup() {
       {/* Signup Form */}
       <section className="py-16 px-6">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border-2 border-amber-700 shadow-xl">
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-amber-700/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">🚀</span>
-              </div>
-              <h2 className="text-3xl font-black text-white mb-4">Complete Your {platform.charAt(0).toUpperCase() + platform.slice(1)} Onboarding</h2>
-              <p className="text-gray-300">
-                You'll be redirected to our secure payment processor to complete your onboarding signup.
-              </p>
-            </div>
-
-            {/* Plan Summary */}
-            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 mb-8 border border-amber-700/20">
-              <h3 className="text-xl font-bold text-white mb-4">Onboarding Plan - $179/month</h3>
-              <ul className="space-y-3 text-gray-300 mb-6">
-                <li className="flex items-center">
-                  <span className="text-amber-600 mr-3 text-lg">✓</span>
-                  All regulatory SMS fees included
-                </li>
-                <li className="flex items-center">
-                  <span className="text-amber-600 mr-3 text-lg">✓</span>
-                  Complete training and onboarding support
-                </li>
-                <li className="flex items-center">
-                  <span className="text-amber-600 mr-3 text-lg">✓</span>
-                  1 dedicated phone number
-                </li>
-                <li className="flex items-center">
-                  <span className="text-amber-600 mr-3 text-lg">✓</span>
-                  Up to 500 contacts
-                </li>
-                <li className="flex items-center">
-                  <span className="text-amber-600 mr-3 text-lg">✓</span>
-                  Up to 1,500 messages per month
-                </li>
-                <li className="flex items-center">
-                  <span className="text-amber-600 mr-3 text-lg">✓</span>
-                  Text-centered customer support
-                </li>
-                <li className="flex items-center">
-                  <span className="text-amber-600 mr-3 text-lg">✓</span>
-                  Compliance monitoring and reporting
-                </li>
-              </ul>
-              
-              {/* Email Field */}
-              <div className="border-t border-gray-700 pt-6 mb-6">
-                <label htmlFor="customerEmail" className="block text-sm font-medium text-gray-300 mb-2">
+          <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
+            <h2 className="text-3xl font-black text-white mb-6">Complete Your Signup</h2>
+            
+            <div className="space-y-6">
+              <div>
+                <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-2">
                   Email Address *
                 </label>
                 <input
                   type="email"
-                  id="customerEmail"
+                  id="email"
                   value={customerEmail}
                   onChange={(e) => setCustomerEmail(e.target.value)}
-                  placeholder="your.email@company.com"
                   required
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-700 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
+                  placeholder="your.email@company.com"
                 />
               </div>
 
-              {/* Discount Code Field */}
-              <div className="border-t border-gray-700 pt-6">
-                <label htmlFor="discountCode" className="block text-sm font-medium text-gray-300 mb-2">
-                  Have a discount code?
+              <div>
+                <label htmlFor="discount" className="block text-sm font-semibold text-gray-300 mb-2">
+                  Discount Code (Optional)
                 </label>
                 <input
                   type="text"
-                  id="discountCode"
+                  id="discount"
                   value={discountCode}
                   onChange={(e) => setDiscountCode(e.target.value)}
-                  placeholder="Enter discount code (optional)"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-700 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
+                  placeholder="Enter discount code if you have one"
                 />
               </div>
+
+              <button
+                onClick={handleStripeCheckout}
+                disabled={isProcessing || !customerEmail}
+                className="w-full bg-gradient-to-r from-amber-700 to-amber-600 text-white py-4 rounded-lg font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isProcessing ? 'Processing...' : `Start with ${config.name} - $79/month`}
+              </button>
             </div>
 
-            {/* Secure Payment Section */}
-            <div className="text-center">
-              <div className="bg-amber-700/20 border border-amber-700/30 rounded-lg p-6 mb-6">
-                <div className="text-amber-400 text-2xl mb-3">🔒</div>
-                <h3 className="text-lg font-bold text-white mb-2">Secure Payment Processing</h3>
-                <p className="text-gray-300 text-sm">
-                  Your payment will be processed securely through Stripe. 
-                  You'll receive immediate access to your {platform.charAt(0).toUpperCase() + platform.slice(1)} account upon completion.
-                </p>
-              </div>
-
-              {/* Stripe Checkout Button */}
-              <button 
-                className="w-full bg-gradient-to-r from-amber-700 to-amber-600 text-white px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300 mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
-                onClick={handleStripeCheckout}
-                disabled={isProcessing}
-              >
-                {isProcessing ? 'Processing...' : 'Proceed to Secure Checkout'}
-              </button>
-
-              <div className="text-sm text-gray-400">
-                <p>• 30-day money-back guarantee</p>
-                <p>• Cancel anytime</p>
-                <p>• No setup fees</p>
-              </div>
+            <div className="mt-8 p-6 bg-amber-700/10 border border-amber-700/20 rounded-lg">
+              <h3 className="text-lg font-bold text-white mb-4">What's Included:</h3>
+              <ul className="space-y-2 text-gray-300">
+                <li className="flex items-center">
+                  <span className="text-amber-400 mr-3">✓</span>
+                  Complete onboarding and training
+                </li>
+                <li className="flex items-center">
+                  <span className="text-amber-400 mr-3">✓</span>
+                  All regulatory SMS fees included
+                </li>
+                <li className="flex items-center">
+                  <span className="text-amber-400 mr-3">✓</span>
+                  Dedicated phone number
+                </li>
+                <li className="flex items-center">
+                  <span className="text-amber-400 mr-3">✓</span>
+                  Up to 1,500 messages per month
+                </li>
+                <li className="flex items-center">
+                  <span className="text-amber-400 mr-3">✓</span>
+                  Text-centered customer support
+                </li>
+                <li className="flex items-center">
+                  <span className="text-amber-400 mr-3">✓</span>
+                  30-day money-back guarantee
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
       {/* Trust Indicators */}
-      <section className="py-16 px-6 bg-gradient-to-b from-transparent to-black/20">
+      <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-black text-white mb-8">Why Trust {platform.charAt(0).toUpperCase() + platform.slice(1)}?</h2>
+          <h2 className="text-3xl font-black text-white mb-8">Why Choose {config.name}?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20">
               <div className="w-12 h-12 bg-amber-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <span className="text-amber-400 text-2xl">🛡️</span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">Enterprise Security</h3>
-              <p className="text-gray-300">
-                SOC 2 Type II certified with end-to-end encryption and comprehensive audit trails.
+              <h3 className="text-lg font-bold text-white mb-3">Compliance First</h3>
+              <p className="text-gray-300 text-sm">
+                Built-in compliance features for highly regulated industries with automatic regulatory updates.
               </p>
             </div>
             <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20">
               <div className="w-12 h-12 bg-amber-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <span className="text-amber-400 text-2xl">💰</span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">Transparent Pricing</h3>
-              <p className="text-gray-300">
-                No hidden fees. Clear, predictable pricing with no surprise charges.
+              <h3 className="text-lg font-bold text-white mb-3">No Hidden Fees</h3>
+              <p className="text-gray-300 text-sm">
+                All regulatory SMS fees included. No surprise charges or additional compliance costs.
               </p>
             </div>
             <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20">
               <div className="w-12 h-12 bg-amber-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <span className="text-amber-400 text-2xl">🎯</span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">Proven Results</h3>
-              <p className="text-gray-300">
-                Trusted by businesses nationwide to deliver reliable SMS solutions.
+              <h3 className="text-lg font-bold text-white mb-3">Proven Results</h3>
+              <p className="text-gray-300 text-sm">
+                Trusted by regulated businesses nationwide to maintain compliance while growing customer engagement.
               </p>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Support Section */}
-      <section className="py-16 px-6">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-black text-white mb-6">Need Help?</h2>
-          <p className="text-lg text-gray-300 mb-8">
-            Our team is here to help you get started with {platform.charAt(0).toUpperCase() + platform.slice(1)}. 
-            Contact us for personalized support and guidance.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/contact" className="inline-block border-2 border-amber-700 text-amber-700 px-6 py-3 rounded-lg text-lg font-black hover:bg-amber-700 hover:text-white transition-all duration-300">
-              Contact Support
-            </a>
-            <a href="/pricing" className="inline-block bg-gray-800 text-white px-6 py-3 rounded-lg text-lg font-black hover:bg-gray-700 transition-all duration-300">
-              View Pricing
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-black/40 backdrop-blur-sm text-gray-300 py-12 border-t border-amber-800/20">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-400 text-sm">© 2025 Percentric Technologies, LLC (Gnymble). All rights reserved.</p>
-        </div>
-      </footer>
     </div>
   );
 } 

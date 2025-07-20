@@ -1,6 +1,6 @@
 import React from 'react';
-import { PercyTechLayout } from "../shared/components/PercyTechTheme";
-import { getSiteConfig } from "../shared/config/PercyTechConfig";
+import { PercyTechLayout } from "@percytech/shared";
+import { getSiteConfig } from "@percytech/shared";
 
 export default function GnymbleFeatures() {
   const config = getSiteConfig("gnymble");
@@ -101,41 +101,41 @@ export default function GnymbleFeatures() {
       icon: "👥"
     },
     {
-      title: "Mobile App",
-      description: "Manage your SMS campaigns on the go with our mobile application.",
-      icon: "📱"
+      title: "API Access",
+      description: "Integrate with your existing systems using our comprehensive API.",
+      icon: "🔌"
     }
   ];
 
   const useCases = [
     {
       title: "Cigar Lounges",
-      description: "Perfect for lounges looking to promote events, new arrivals, and member communications.",
+      description: "Perfect for cigar lounges looking to promote events and build customer loyalty.",
       examples: [
-        "Event announcements and reminders",
-        "New cigar arrivals",
-        "Member-only specials",
-        "Happy hour promotions"
+        "Event announcements and RSVPs",
+        "Member-only promotions",
+        "New arrival notifications",
+        "Loyalty program updates"
       ]
     },
     {
-      title: "Tobacco Retailers",
-      description: "Ideal for retailers managing inventory, promotions, and customer relationships.",
+      title: "Online Retailers",
+      description: "Ideal for online cigar retailers who want to drive sales and customer engagement.",
       examples: [
-        "Inventory updates and restocks",
-        "Promotional campaigns",
-        "Customer loyalty programs",
-        "Brand launch events"
+        "Flash sale notifications",
+        "Order status updates",
+        "Back-in-stock alerts",
+        "Customer feedback requests"
       ]
     },
     {
-      title: "Cigar Manufacturers",
-      description: "Essential for manufacturers launching new products and managing brand events.",
+      title: "Distributors",
+      description: "Great for distributors who need to communicate with retailers and end customers.",
       examples: [
-        "New product launches",
-        "Limited edition releases",
-        "Brand ambassador events",
-        "Trade show announcements"
+        "Product launch announcements",
+        "Inventory updates",
+        "Trade show invitations",
+        "Training and support"
       ]
     }
   ];
@@ -146,12 +146,11 @@ export default function GnymbleFeatures() {
       <section className="pt-20 pb-16 px-6 text-center">
         <h1 className="text-6xl font-black leading-tight mb-6">
           <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
-            Built for the Cigar Industry
+            Features Built for Your Industry
           </span>
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          Every feature designed specifically for cigar lounges, retailers, and manufacturers. 
-          No more getting blocked, banned, or ignored by traditional SMS platforms.
+          Everything you need to reach your customers without restrictions or compliance concerns.
         </p>
       </section>
 
@@ -238,7 +237,7 @@ export default function GnymbleFeatures() {
       <section className="py-20 text-center bg-gradient-to-r from-amber-700 to-amber-600 text-white">
         <h2 className="text-4xl font-black mb-6">Ready to Get Started?</h2>
         <p className="text-xl mb-8 opacity-90">
-          Join the cigar businesses already using Gnymble to reach their customers without restrictions.
+          Join the cigar businesses already using {config.name} to reach their customers without restrictions.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
@@ -248,7 +247,7 @@ export default function GnymbleFeatures() {
             Request Demo
           </a>
           <a
-            href="/signup?platform=gnymble"
+            href={`/signup?platform=${config.name.toLowerCase()}`}
             className="inline-block border-2 border-white text-white px-8 py-4 rounded-lg text-xl font-black hover:bg-white hover:text-amber-700 transition-all duration-300"
           >
             Start Free Trial

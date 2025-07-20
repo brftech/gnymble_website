@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { PercyTechLayout } from "../shared/components/PercyTechTheme";
-import { getSiteConfig } from "../shared/config/PercyTechConfig";
+import { PercyTechLayout } from "@percytech/shared";
+import { getSiteConfig } from "@percytech/shared";
 
 export default function GnymbleContact() {
   const config = getSiteConfig("gnymble");
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
     company: '',
-    jobtitle: '',
+    jobTitle: '',
     message: '',
-    solution_interest: 'Gnymble'
+    solutionInterest: config.name
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -42,14 +42,14 @@ export default function GnymbleContact() {
       if (response.ok) {
         setSubmitStatus('success');
         setFormData({
-          firstname: '',
-          lastname: '',
+          firstName: '',
+          lastName: '',
           email: '',
           phone: '',
           company: '',
-          jobtitle: '',
+          jobTitle: '',
           message: '',
-          solution_interest: 'Gnymble'
+          solutionInterest: config.name
         });
       } else {
         setSubmitStatus('error');
@@ -98,119 +98,131 @@ export default function GnymbleContact() {
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
-              <h2 className="text-3xl font-black text-white mb-6">Or You Can Email Us</h2>
-              <p className="text-gray-300 mb-6">Enter your information below and we will reach out to you shortly.</p>
+            <div>
+              <h2 className="text-3xl font-black text-white mb-6">Send us a message</h2>
+              <p className="text-gray-300 leading-relaxed mb-8">
+                Have questions about our SMS platform? Want to learn more about how we can help your business? 
+                Fill out the form and we'll get back to you within 24 hours.
+              </p>
               
-              {submitStatus === 'success' && (
-                <div className="mb-6 p-4 bg-green-900/20 border border-green-700/30 rounded-lg">
-                  <p className="text-green-400">Thank you! Your message has been sent successfully. Our sales team will contact you within 24 hours.</p>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-3">Why choose {config.name}?</h3>
+                  <ul className="space-y-2 text-gray-300">
+                    <li>• Built specifically for regulated industries</li>
+                    <li>• HIPAA, FINRA, and SEC compliant</li>
+                    <li>• Enterprise-grade security</li>
+                    <li>• 24/7 customer support</li>
+                  </ul>
                 </div>
-              )}
-              
-              {submitStatus === 'error' && (
-                <div className="mb-6 p-4 bg-red-900/20 border border-red-700/30 rounded-lg">
-                  <p className="text-red-400">There was an error sending your message. Please try again or contact us directly.</p>
+                
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-3">Industries we serve</h3>
+                  <ul className="space-y-2 text-gray-300">
+                    <li>• Healthcare & Pharmaceuticals</li>
+                    <li>• Financial Services</li>
+                    <li>• Legal & Professional Services</li>
+                    <li>• Government & Education</li>
+                  </ul>
                 </div>
-              )}
+              </div>
+            </div>
 
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="firstname" className="block text-sm font-semibold text-gray-300 mb-2">
+                    <label htmlFor="firstName" className="block text-sm font-semibold text-gray-300 mb-2">
                       First Name *
                     </label>
                     <input
                       type="text"
-                      id="firstname"
-                      name="firstname"
-                      value={formData.firstname}
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
                       placeholder="Your first name"
                     />
                   </div>
+                  
                   <div>
-                    <label htmlFor="lastname" className="block text-sm font-semibold text-gray-300 mb-2">
+                    <label htmlFor="lastName" className="block text-sm font-semibold text-gray-300 mb-2">
                       Last Name *
                     </label>
                     <input
                       type="text"
-                      id="lastname"
-                      name="lastname"
-                      value={formData.lastname}
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
                       placeholder="Your last name"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
-                      placeholder="your.email@company.com"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-semibold text-gray-300 mb-2">
-                      Phone
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
-                      placeholder="(555) 123-4567"
-                    />
-                  </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+                    placeholder="your.email@company.com"
+                  />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="company" className="block text-sm font-semibold text-gray-300 mb-2">
-                      Company *
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
-                      placeholder="Your company name"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="jobtitle" className="block text-sm font-semibold text-gray-300 mb-2">
-                      Job Title
-                    </label>
-                    <input
-                      type="text"
-                      id="jobtitle"
-                      name="jobtitle"
-                      value={formData.jobtitle}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
-                      placeholder="Your job title"
-                    />
-                  </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-semibold text-gray-300 mb-2">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+                    placeholder="(555) 123-4567"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="company" className="block text-sm font-semibold text-gray-300 mb-2">
+                    Company
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+                    placeholder="Your company name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="jobTitle" className="block text-sm font-semibold text-gray-300 mb-2">
+                    Job Title
+                  </label>
+                  <input
+                    type="text"
+                    id="jobTitle"
+                    name="jobTitle"
+                    value={formData.jobTitle}
+                    onChange={handleInputChange}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+                    placeholder="Your job title"
+                  />
                 </div>
 
                 <div>
@@ -223,93 +235,52 @@ export default function GnymbleContact() {
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    rows={6}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors resize-none"
-                    placeholder="Tell us about your compliance requirements and how Gnymble can help..."
+                    rows={4}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors resize-none"
+                    placeholder="Tell us about your SMS needs and how we can help..."
                   />
+                </div>
+
+                <div>
+                  <label htmlFor="solutionInterest" className="block text-sm font-semibold text-gray-300 mb-2">
+                    Solution Interest
+                  </label>
+                  <select
+                    id="solutionInterest"
+                    name="solutionInterest"
+                    value={formData.solutionInterest}
+                    onChange={handleInputChange}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+                  >
+                    <option value={config.name}>{config.name} (Regulated Industries)</option>
+                    <option value="PercyMD">PercyMD (Healthcare)</option>
+                    <option value="PercyText">PercyText (General Business)</option>
+                    <option value="general">General Inquiry</option>
+                  </select>
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-amber-700 to-amber-600 text-white py-4 rounded-lg font-semibold hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-amber-700 to-amber-600 text-white py-4 rounded-lg font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? 'Sending...' : 'Contact Sales Team'}
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
+
+                {submitStatus === 'success' && (
+                  <div className="bg-green-900/20 border border-green-700/20 rounded-lg p-4 text-green-400">
+                    <p className="font-semibold">Message sent successfully!</p>
+                    <p className="text-sm mt-1">We'll get back to you within 24 hours.</p>
+                  </div>
+                )}
+
+                {submitStatus === 'error' && (
+                  <div className="bg-amber-900/20 border border-amber-700/20 rounded-lg p-4 text-amber-400">
+                    <p className="font-semibold">Failed to send message.</p>
+                    <p className="text-sm mt-1">Please try again or contact us directly.</p>
+                  </div>
+                )}
               </form>
-            </div>
-
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
-                <h3 className="text-2xl font-black text-white mb-6">Why Choose Gnymble?</h3>
-                <ul className="space-y-4">
-                  <li className="flex items-start">
-                    <span className="text-amber-600 mr-3 mt-1">✓</span>
-                    <span className="text-gray-300">Enterprise-grade compliance for regulated industries</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-amber-600 mr-3 mt-1">✓</span>
-                    <span className="text-gray-300">SOC 2 Type II certified security</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-amber-600 mr-3 mt-1">✓</span>
-                    <span className="text-gray-300">Multi-level approval workflows</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-amber-600 mr-3 mt-1">✓</span>
-                    <span className="text-gray-300">Complete audit trails and reporting</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-amber-600 mr-3 mt-1">✓</span>
-                    <span className="text-gray-300">Dedicated compliance support</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
-                <h3 className="text-2xl font-black text-white mb-6">Contact Information</h3>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-amber-600 mb-2">Sales Team</h4>
-                    <p className="text-gray-300">sales@gnymble.com</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-amber-600 mb-2">Compliance Support</h4>
-                    <p className="text-gray-300">compliance@gnymble.com</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-amber-600 mb-2">Emergency Support</h4>
-                    <p className="text-gray-300">1-800-GNYMBLE</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
-                <h3 className="text-2xl font-black text-white mb-6">Industries We Serve</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center">
-                    <span className="text-amber-600 mr-3">🏦</span>
-                    <span className="text-gray-300">Financial Services</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="text-amber-600 mr-3">🏥</span>
-                    <span className="text-gray-300">Healthcare</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="text-amber-600 mr-3">⚖️</span>
-                    <span className="text-gray-300">Legal & Professional</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="text-amber-600 mr-3">🏭</span>
-                    <span className="text-gray-300">Manufacturing</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="text-amber-600 mr-3">🎯</span>
-                    <span className="text-gray-300">Regulated Markets</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

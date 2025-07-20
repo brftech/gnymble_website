@@ -1,242 +1,209 @@
 import React from 'react';
-import { PercyTechLayout } from "../shared/components/PercyTechTheme";
-import { getSiteConfig } from "../shared/config/PercyTechConfig";
+import { PercyTechLayout } from "@percytech/shared";
+import { getSiteConfig } from "@percytech/shared";
 
 export default function GnymblePricing() {
   const config = getSiteConfig("gnymble");
 
   return (
     <PercyTechLayout siteName={config.name} siteDescription={config.description}>
-      {/* Hero Section - Compact */}
-      <section className="relative bg-gradient-to-br from-black to-gray-900 pt-16 pb-12 px-6 text-center">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-amber-700/5 to-transparent pointer-events-none" />
-        
-        <div className="relative z-10">
-          <div className="inline-block mb-4">
-            <span className="bg-amber-800/30 text-amber-300 text-sm font-medium px-3 py-1 rounded-full border border-amber-700/40">
-              Simple, Transparent Pricing
-            </span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white text-balance mb-4">
-            <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
-              Pricing That Won't Go Up In Smoke
-            </span>
-          </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Everyone starts with our onboarding plan. Then choose the ongoing plan that fits your business needs and compliance requirements.
-          </p>
-        </div>
+      {/* Hero Section */}
+      <section className="pt-20 pb-16 px-6 text-center">
+        <h1 className="text-6xl font-black leading-tight mb-6">
+          <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
+            Simple, Transparent Pricing
+          </span>
+        </h1>
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          One plan. Everything included. No hidden fees or surprise charges.
+        </p>
       </section>
 
-      {/* Onboarding Section - Compact */}
-      <section className="py-12 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border-2 border-amber-700 shadow-xl relative overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute inset-0 bg-gradient-to-br from-amber-700/5 to-transparent" />
-            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-700/10 rounded-full -translate-y-12 translate-x-12" />
-            <div className="absolute bottom-0 left-0 w-20 h-20 bg-amber-700/10 rounded-full translate-y-8 -translate-x-8" />
-            
-            <div className="relative z-10">
+      {/* Pricing Tiers */}
+      <section className="py-16 px-6">
+        <div className="max-w-6xl mx-auto">
+                    {/* Onboarding Plan - Featured at Top */}
+          <div className="max-w-2xl mx-auto mb-16">
+            <div className="bg-gradient-to-br from-amber-900/20 to-amber-800/20 p-8 rounded-2xl border-2 border-amber-700/40 relative transform scale-105">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span className="bg-amber-700 text-white px-4 py-1 rounded-full text-sm font-bold">
-                  Onboarding Plan
-                </span>
+                <span className="bg-amber-700 text-white px-4 py-1 rounded-full text-sm font-semibold">Onboarding Plan</span>
               </div>
-              <div className="pt-8">
-                <h2 className="text-3xl font-black text-white mb-4">Start Here</h2>
-                <div className="mb-6">
-                  <span className="text-5xl font-black text-amber-600">$179</span>
-                  <span className="text-xl text-gray-300">/month</span>
-                </div>
-                <p className="text-lg text-gray-300 mb-6">
-                  Perfect for established businesses ready to grow their customer communications with compliance confidence
-                </p>
-                <ul className="space-y-3 mb-8 text-left max-w-xl mx-auto">
-                  <li className="flex items-center text-gray-300">
-                    <span className="text-orange-600 mr-3 text-lg">✓</span>
-                    <span className="text-base">All regulatory SMS fees included</span>
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <span className="text-orange-600 mr-3 text-lg">✓</span>
-                    <span className="text-base">Complete training and onboarding support</span>
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <span className="text-orange-600 mr-3 text-lg">✓</span>
-                    <span className="text-base">1 dedicated phone number</span>
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <span className="text-orange-600 mr-3 text-lg">✓</span>
-                    <span className="text-base">Up to 500 contacts</span>
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <span className="text-orange-600 mr-3 text-lg">✓</span>
-                    <span className="text-base">Up to 1,500 messages per month</span>
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <span className="text-orange-600 mr-3 text-lg">✓</span>
-                    <span className="text-base">Text-centered customer support</span>
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <span className="text-orange-600 mr-3 text-lg">✓</span>
-                    <span className="text-base">Compliance monitoring and reporting</span>
-                  </li>
-                </ul>
-                <a href="/signup?platform=gnymble" className="inline-block bg-gradient-to-r from-amber-700 to-amber-600 text-white px-6 py-3 rounded-lg text-lg font-black hover:scale-105 hover:shadow-2xl transition-all duration-300 mb-3">
-                  Sign Up
-                </a>
-                <div className="text-sm text-gray-400">
-                  All new customers start here • Cancel anytime • 30-day money-back guarantee
-                </div>
+              
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-black text-white mb-4">Onboarding</h3>
+                <div className="text-4xl font-black text-amber-400 mb-2">$179</div>
+                <div className="text-gray-400">one-time setup</div>
+                <p className="text-sm text-gray-400 mt-2">Complete setup, training, and plan selection for your business.</p>
               </div>
+              
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-center text-gray-300">
+                  <span className="text-amber-400 mr-3">✓</span>
+                  Complete business setup & training
+                </li>
+                <li className="flex items-center text-gray-300">
+                  <span className="text-amber-400 mr-3">✓</span>
+                  Plan selection consultation
+                </li>
+                <li className="flex items-center text-gray-300">
+                  <span className="text-amber-400 mr-3">✓</span>
+                  Dedicated onboarding specialist
+                </li>
+                <li className="flex items-center text-gray-300">
+                  <span className="text-amber-400 mr-3">✓</span>
+                  First month of chosen plan included
+                </li>
+              </ul>
+              
+              <a href="/stripe-onboarding" className="block w-full bg-gradient-to-r from-amber-600 to-amber-500 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
+                Get Started
+              </a>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Ongoing Plans Section - Compact */}
-      <section className="py-12 px-6 bg-gradient-to-b from-transparent to-black/20">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-black text-white mb-4">Choose Your Ongoing Plan</h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              During onboarding, you'll select the plan that best fits your business needs, messaging volume, and compliance requirements.
+          {/* Platform Plans - Below Onboarding */}
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-black text-white mb-4">Choose Your Perfect Plan</h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              During your onboarding session, we'll help you select the perfect plan for your business needs. 
+              Start with onboarding and we'll guide you to the right choice.
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Starter Plan */}
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-2xl border border-amber-700/20 hover:border-amber-700/40 transition-all duration-300 hover:-translate-y-1">
-              <div className="w-10 h-10 bg-amber-700/20 rounded-lg flex items-center justify-center mb-3">
-                <span className="text-amber-300 text-xl">🚀</span>
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20 relative">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-black text-white mb-4">Starter</h3>
+                <div className="text-4xl font-black text-amber-400 mb-2">$79</div>
+                <div className="text-gray-400">per month</div>
+                <p className="text-sm text-gray-400 mt-2">Perfect for small shops dipping their toes in customer communications.</p>
               </div>
-              <h3 className="text-xl font-black mb-3 text-white">Starter</h3>
-              <p className="text-gray-300 mb-4 text-sm">
-                Perfect for small businesses dipping their toes in customer communications.
-              </p>
-              <div className="mb-4">
-                <span className="text-3xl font-black text-amber-600">$79</span>
-                <span className="text-base text-gray-300">/month</span>
-              </div>
-              <ul className="space-y-2 mb-6 text-sm">
+              
+              <ul className="space-y-4 mb-8">
                 <li className="flex items-center text-gray-300">
-                  <span className="text-orange-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   1 dedicated phone number
                 </li>
                 <li className="flex items-center text-gray-300">
-                  <span className="text-orange-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   Up to 50 contacts
                 </li>
                 <li className="flex items-center text-gray-300">
-                  <span className="text-orange-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   Up to 200 messages per month
                 </li>
                 <li className="flex items-center text-gray-300">
-                  <span className="text-orange-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   Text-centered customer support
                 </li>
-                <li className="flex items-center text-gray-300">
-                  <span className="text-orange-600 mr-2">✓</span>
-                  Basic compliance features
-                </li>
               </ul>
-              <a href="/signup?platform=gnymble" className="block w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
-                Sign Up
-              </a>
+              
+              <div className="text-center text-sm text-gray-400 italic">
+                Plan selection during onboarding
+              </div>
             </div>
 
-            {/* Core Plan - Featured */}
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-2xl border-2 border-amber-700 shadow-xl relative hover:-translate-y-1 transition-all duration-300">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <span className="bg-amber-700 text-white px-4 py-1 rounded-full text-sm font-bold">
-                  Most Popular
-                </span>
+            {/* Core Plan */}
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20 relative">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-black text-white mb-4">Core</h3>
+                <div className="text-4xl font-black text-amber-400 mb-2">$179</div>
+                <div className="text-gray-400">per month</div>
+                <p className="text-sm text-gray-400 mt-2">For established shops ready to grow their customer communications.</p>
               </div>
-              <div className="w-10 h-10 bg-amber-700/20 rounded-lg flex items-center justify-center mb-3">
-                <span className="text-amber-300 text-xl">⚡</span>
-              </div>
-              <h3 className="text-xl font-black mb-3 text-white">Core</h3>
-              <p className="text-gray-300 mb-4 text-sm">
-                For established businesses ready to grow their customer communications.
-              </p>
-              <div className="mb-4">
-                <span className="text-3xl font-black text-amber-600">$179</span>
-                <span className="text-base text-gray-300">/month</span>
-              </div>
-              <ul className="space-y-2 mb-6 text-sm">
+              
+              <ul className="space-y-4 mb-8">
                 <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   1 dedicated phone number
                 </li>
                 <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   Up to 500 contacts
                 </li>
                 <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   Up to 1,500 messages per month
                 </li>
                 <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   Text-centered customer support
                 </li>
-                <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
-                  Advanced compliance monitoring
-                </li>
-                <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
-                  Message approval workflows
-                </li>
               </ul>
-              <a href="/signup?platform=gnymble" className="block w-full bg-amber-700 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
-                Sign Up
-              </a>
+              
+              <div className="text-center text-sm text-gray-400 italic">
+                Plan selection during onboarding
+              </div>
             </div>
 
             {/* Elite Plan */}
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-2xl border border-amber-700/20 hover:border-amber-700/40 transition-all duration-300 hover:-translate-y-1">
-              <div className="w-10 h-10 bg-amber-700/20 rounded-lg flex items-center justify-center mb-3">
-                <span className="text-amber-300 text-xl">🏆</span>
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20 relative">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-black text-white mb-4">Elite</h3>
+                <div className="text-4xl font-black text-amber-400 mb-2">$349</div>
+                <div className="text-gray-400">per month</div>
+                <p className="text-sm text-gray-400 mt-2">The perfect blend for retailers with a thriving customer base.</p>
               </div>
-              <h3 className="text-xl font-black mb-3 text-white">Elite</h3>
-              <p className="text-gray-300 mb-4 text-sm">
-                The perfect blend for businesses with a thriving customer base.
-              </p>
-              <div className="mb-4">
-                <span className="text-3xl font-black text-amber-600">$349</span>
-                <span className="text-base text-gray-300">/month</span>
-              </div>
-              <ul className="space-y-2 mb-6 text-sm">
+              
+              <ul className="space-y-4 mb-8">
                 <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   1 dedicated or hosted phone number
                 </li>
                 <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   Up to 3,000 contacts
                 </li>
                 <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   Up to 8,000 messages per month
                 </li>
                 <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
+                  <span className="text-amber-400 mr-3">✓</span>
                   Priority text and video support
                 </li>
-                <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
-                  Enterprise compliance features
-                </li>
-                <li className="flex items-center text-gray-300">
-                  <span className="text-amber-600 mr-2">✓</span>
-                  Custom integrations
-                </li>
               </ul>
-              <a href="/signup?platform=gnymble" className="block w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
-                Sign Up
-              </a>
+              
+              <div className="text-center text-sm text-gray-400 italic">
+                Plan selection during onboarding
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Additional Features */}
+      <section className="py-16 px-6 bg-gradient-to-br from-amber-700/10 to-transparent">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-black text-white mb-8">All Plans Include</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20">
+              <div className="w-12 h-12 bg-amber-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <span className="text-amber-400 text-2xl">🛡️</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Compliance</h3>
+              <p className="text-gray-300 text-sm">Built-in regulatory compliance for your industry</p>
+            </div>
+            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20">
+              <div className="w-12 h-12 bg-amber-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <span className="text-amber-400 text-2xl">🔒</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Security</h3>
+              <p className="text-gray-300 text-sm">Enterprise-grade security and encryption</p>
+            </div>
+            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20">
+              <div className="w-12 h-12 bg-amber-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <span className="text-amber-400 text-2xl">📊</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Analytics</h3>
+              <p className="text-gray-300 text-sm">Detailed reporting and message tracking</p>
+            </div>
+            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20">
+              <div className="w-12 h-12 bg-amber-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <span className="text-amber-400 text-2xl">🔗</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Integrations</h3>
+              <p className="text-gray-300 text-sm">Connect with your existing tools</p>
             </div>
           </div>
         </div>
@@ -245,7 +212,7 @@ export default function GnymblePricing() {
       {/* Trust Indicators Section - Compact */}
       <section className="py-12 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-black text-white mb-6">Why Choose Gnymble?</h2>
+          <h2 className="text-2xl font-black text-white mb-6">Why Choose {config.name}?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-amber-800/30">
               <div className="w-10 h-10 bg-amber-800/30 rounded-lg flex items-center justify-center mb-3 mx-auto">
@@ -285,7 +252,7 @@ export default function GnymblePricing() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
             <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-amber-800/30">
               <h3 className="text-lg font-black text-white mb-2">What's included in the $179 onboarding?</h3>
-              <p className="text-gray-300 text-sm">The $179/month includes all regulatory SMS fees, complete training, onboarding support, and everything you need to start texting with compliance and confidence.</p>
+              <p className="text-gray-300 text-sm">The $179 onboarding includes complete business setup, training, plan selection consultation, and your first month of the chosen plan. After onboarding, you'll pay the regular plan price.</p>
             </div>
             <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-amber-800/30">
               <h3 className="text-lg font-black text-white mb-2">Can I change plans later?</h3>
@@ -297,7 +264,7 @@ export default function GnymblePricing() {
             </div>
             <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-amber-800/30">
               <h3 className="text-lg font-black text-white mb-2">Is there a setup fee?</h3>
-              <p className="text-gray-300 text-sm">No setup fees! Your first month starts at $179 and includes complete onboarding, training, and support.</p>
+              <p className="text-gray-300 text-sm">The $179 onboarding fee covers complete setup, training, and your first month. After that, you pay the regular plan price ($79, $179, or $349/month).</p>
             </div>
             <div className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-amber-800/30">
               <h3 className="text-lg font-black text-white mb-2">What if I exceed my message limit?</h3>
@@ -316,12 +283,12 @@ export default function GnymblePricing() {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-black text-white mb-4">Ready to Get Started?</h2>
           <p className="text-lg text-gray-300 mb-6">
-            Join thousands of regulated businesses that trust Gnymble for their customer communications.
+            Join thousands of regulated businesses that trust {config.name} for their customer communications.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a href="/signup?platform=gnymble" className="inline-block bg-gradient-to-r from-amber-700 to-amber-600 text-white px-6 py-3 rounded-lg text-lg font-black hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                  Sign Up
-                </a>
+            <a href={`/signup?platform=${config.name.toLowerCase()}`} className="inline-block bg-gradient-to-r from-amber-700 to-amber-600 text-white px-6 py-3 rounded-lg text-lg font-black hover:scale-105 hover:shadow-2xl transition-all duration-300">
+              Sign Up
+            </a>
             <a href="/contact" className="inline-block border-2 border-amber-700 text-amber-600 px-6 py-3 rounded-lg text-lg font-black hover:bg-amber-700 hover:text-white transition-all duration-300">
               Talk to Sales
             </a>

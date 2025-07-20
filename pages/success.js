@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { PercyTechLayout } from "../shared/components/PercyTechTheme";
-import { getSiteConfig } from "../shared/config/PercyTechConfig";
+import { PercyTechLayout } from "@percytech/shared";
+import { getSiteConfig } from "@percytech/shared";
 
 export default function SuccessPage() {
   const router = useRouter();

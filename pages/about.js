@@ -1,6 +1,6 @@
 import React from 'react';
-import { PercyTechLayout } from "../shared/components/PercyTechTheme";
-import { getSiteConfig } from "../shared/config/PercyTechConfig";
+import { PercyTechLayout } from "@percytech/shared";
+import { getSiteConfig } from "@percytech/shared";
 
 export default function GnymbleAbout() {
   const config = getSiteConfig("gnymble");

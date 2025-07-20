@@ -4,6 +4,13 @@ import { logger } from '../../../lib/logger';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
+// Disable body parsing for Stripe webhooks to get raw body
+export const config = { 
+  api: { 
+    bodyParser: false 
+  } 
+};
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
@@ -14,7 +21,9 @@ export default async function handler(req, res) {
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
+    // Get raw body for webhook verification
+    const rawBody = await getRawBody(req);
+    event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
   } catch (err) {
     logger.error('Webhook signature verification failed', { error: err.message });
     return res.status(400).json({ message: 'Webhook signature verification failed' });
@@ -62,6 +71,20 @@ export default async function handler(req, res) {
     logger.error('Webhook handler error', { error, eventType: event.type });
     res.status(500).json({ message: 'Webhook handler error' });
   }
+}
+
+// Helper function to get raw body from request
+async function getRawBody(req) {
+  return new Promise((resolve, reject) => {
+    let data = '';
+    req.on('data', chunk => {
+      data += chunk;
+    });
+    req.on('end', () => {
+      resolve(Buffer.from(data, 'utf8'));
+    });
+    req.on('error', reject);
+  });
 }
 
 async function handleCheckoutSessionCompleted(session) {

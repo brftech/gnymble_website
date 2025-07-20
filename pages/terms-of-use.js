@@ -1,6 +1,6 @@
 import React from 'react';
-import { PercyTechLayout } from "../shared/components/PercyTechTheme";
-import { getSiteConfig } from "../shared/config/PercyTechConfig";
+import { PercyTechLayout } from "@percytech/shared";
+import { getSiteConfig } from "@percytech/shared";
 
 export default function GnymbleTermsOfUse() {
   const config = getSiteConfig("gnymble");
@@ -10,7 +10,7 @@ export default function GnymbleTermsOfUse() {
       {/* Hero Section */}
       <section className="pt-20 pb-16 px-6 text-center">
         <h1 className="text-6xl font-black leading-tight mb-6">
-          <span className="bg-gradient-to-r from-white to-orange-600 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-white to-amber-600 bg-clip-text text-transparent">
             Terms of Use
           </span>
         </h1>

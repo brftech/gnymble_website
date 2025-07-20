@@ -119,7 +119,7 @@ export default function SimpleSignup() {
 
             {/* Plan Summary */}
             <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 mb-8 border border-amber-700/20">
-              <h3 className="text-xl font-bold text-white mb-4">Onboarding Plan - $179/month</h3>
+                              <h3 className="text-xl font-bold text-white mb-4">Onboarding Plan - $179</h3>
               <ul className="space-y-3 text-gray-300 mb-6">
                 <li className="flex items-center">
                   <span className="text-amber-600 mr-3 text-lg">✓</span>
