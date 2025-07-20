@@ -83,8 +83,8 @@ export default function GnymblePricing() {
                     <span className="text-base">Compliance monitoring and reporting</span>
                   </li>
                 </ul>
-                <a href="/contact" className="inline-block bg-gradient-to-r from-orange-600 to-orange-500 text-white px-6 py-3 rounded-lg text-lg font-black hover:scale-105 hover:shadow-2xl transition-all duration-300 mb-3">
-                  Get Started
+                <a href="/stripe-onboarding" className="inline-block bg-gradient-to-r from-orange-600 to-orange-500 text-white px-6 py-3 rounded-lg text-lg font-black hover:scale-105 hover:shadow-2xl transition-all duration-300 mb-3">
+                  Sign Up
                 </a>
                 <div className="text-sm text-gray-400">
                   All new customers start here • Cancel anytime • 30-day money-back guarantee
@@ -141,8 +141,8 @@ export default function GnymblePricing() {
                   Basic compliance features
                 </li>
               </ul>
-              <a href="/contact" className="block w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
-                Get Started
+              <a href="/stripe-onboarding" className="block w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
+                Sign Up
               </a>
             </div>
 
@@ -190,8 +190,8 @@ export default function GnymblePricing() {
                   Message approval workflows
                 </li>
               </ul>
-              <a href="/contact" className="block w-full bg-orange-600 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
-                Get Started
+              <a href="/stripe-onboarding" className="block w-full bg-orange-600 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
+                Sign Up
               </a>
             </div>
 
@@ -234,8 +234,8 @@ export default function GnymblePricing() {
                   Custom integrations
                 </li>
               </ul>
-              <a href="/contact" className="block w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
-                Get Started
+              <a href="/stripe-onboarding" className="block w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
+                Sign Up
               </a>
             </div>
           </div>
@@ -319,7 +319,7 @@ export default function GnymblePricing() {
             Join thousands of regulated businesses that trust Gnymble for their customer communications.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/contact" className="inline-block bg-gradient-to-r from-orange-600 to-orange-500 text-white px-6 py-3 rounded-lg text-lg font-black hover:scale-105 hover:shadow-2xl transition-all duration-300">
+            <a href="/stripe-onboarding" className="inline-block bg-gradient-to-r from-orange-600 to-orange-500 text-white px-6 py-3 rounded-lg text-lg font-black hover:scale-105 hover:shadow-2xl transition-all duration-300">
               Start Onboarding
             </a>
             <a href="/contact" className="inline-block border-2 border-orange-600 text-orange-600 px-6 py-3 rounded-lg text-lg font-black hover:bg-orange-600 hover:text-white transition-all duration-300">

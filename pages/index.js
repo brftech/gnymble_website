@@ -32,8 +32,8 @@ export default function GnymbleHome() {
                 relationships through intelligent automation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="/contact" className="inline-block bg-gradient-to-r from-orange-600 to-orange-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                  Get Demo
+                <a href="/stripe-onboarding" className="inline-block bg-gradient-to-r from-orange-600 to-orange-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                  Sign Up
                 </a>
                 <a href="/pricing" className="inline-block border border-orange-600 text-orange-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-orange-600/10 transition-all duration-300">
                   View Pricing
@@ -333,8 +333,8 @@ export default function GnymbleHome() {
           Start your onboarding today and get everything you need to begin texting with confidence and compliance.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="/contact" className="inline-block bg-white text-orange-600 px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300">
-            Start Onboarding
+          <a href="/stripe-onboarding" className="inline-block bg-white text-orange-600 px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300">
+            Sign Up
           </a>
           <a href="/pricing" className="inline-block border-2 border-white text-white px-8 py-4 rounded-lg text-xl font-black hover:bg-white hover:text-orange-600 transition-all duration-300">
             View Pricing

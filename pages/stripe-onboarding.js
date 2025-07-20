@@ -1,0 +1,166 @@
+import React from 'react';
+import { PercyTechLayout } from "../shared/components/PercyTechTheme";
+import { getSiteConfig } from "../shared/config/PercyTechConfig";
+
+export default function StripeOnboarding() {
+  const config = getSiteConfig("gnymble");
+
+  return (
+    <PercyTechLayout siteName={config.name} siteDescription={config.description}>
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-black to-gray-900 pt-20 pb-16 px-6 text-center">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-orange-700/5 to-transparent pointer-events-none" />
+        
+        <div className="relative z-10">
+          <div className="inline-block mb-6">
+            <span className="bg-orange-700/20 text-orange-400 text-sm font-medium px-3 py-1 rounded-full border border-orange-700/30">
+              Secure Onboarding
+            </span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white text-balance mb-6">
+            <span className="bg-gradient-to-r from-white to-orange-600 bg-clip-text text-transparent">
+              Start Your Gnymble Journey
+            </span>
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Complete your secure onboarding to begin using Gnymble's compliance-first texting platform.
+          </p>
+        </div>
+      </section>
+
+      {/* Onboarding Form Section */}
+      <section className="py-16 px-6">
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border-2 border-orange-600 shadow-xl">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-black text-white mb-4">Complete Your Setup</h2>
+              <p className="text-gray-300">
+                You'll be redirected to our secure payment processor to complete your onboarding.
+              </p>
+            </div>
+
+            {/* Onboarding Plan Summary */}
+            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 mb-8 border border-orange-700/20">
+              <h3 className="text-xl font-bold text-white mb-4">Onboarding Plan - $179/month</h3>
+              <ul className="space-y-3 text-gray-300">
+                <li className="flex items-center">
+                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  All regulatory SMS fees included
+                </li>
+                <li className="flex items-center">
+                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  Complete training and onboarding support
+                </li>
+                <li className="flex items-center">
+                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  1 dedicated phone number
+                </li>
+                <li className="flex items-center">
+                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  Up to 500 contacts
+                </li>
+                <li className="flex items-center">
+                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  Up to 1,500 messages per month
+                </li>
+                <li className="flex items-center">
+                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  Text-centered customer support
+                </li>
+                <li className="flex items-center">
+                  <span className="text-orange-600 mr-3 text-lg">✓</span>
+                  Compliance monitoring and reporting
+                </li>
+              </ul>
+            </div>
+
+            {/* Stripe Integration Placeholder */}
+            <div className="text-center">
+              <div className="bg-orange-600/20 border border-orange-600/30 rounded-lg p-6 mb-6">
+                <div className="text-orange-400 text-2xl mb-3">🔒</div>
+                <h3 className="text-lg font-bold text-white mb-2">Secure Payment Processing</h3>
+                <p className="text-gray-300 text-sm">
+                  Your payment will be processed securely through Stripe. 
+                  You'll receive immediate access to your Gnymble account upon completion.
+                </p>
+              </div>
+
+              {/* Placeholder for Stripe Checkout Button */}
+              <button 
+                className="w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300 mb-4"
+                onClick={() => {
+                  // TODO: Replace with actual Stripe Checkout integration
+                  alert('Stripe Checkout integration will be implemented here. This will redirect to Stripe to complete the payment.');
+                }}
+              >
+                Proceed to Secure Checkout
+              </button>
+
+              <div className="text-sm text-gray-400">
+                <p>• 30-day money-back guarantee</p>
+                <p>• Cancel anytime</p>
+                <p>• No setup fees</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Indicators */}
+      <section className="py-16 px-6 bg-gradient-to-b from-transparent to-black/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-black text-white mb-8">Why Trust Gnymble?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-orange-700/20">
+              <div className="w-12 h-12 bg-orange-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <span className="text-orange-400 text-2xl">🛡️</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">SOC 2 Type II Certified</h3>
+              <p className="text-gray-300">
+                Enterprise-grade security with end-to-end encryption and comprehensive audit trails.
+              </p>
+            </div>
+            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-orange-700/20">
+              <div className="w-12 h-12 bg-orange-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <span className="text-orange-400 text-2xl">💰</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">No Hidden Fees</h3>
+              <p className="text-gray-300">
+                All regulatory SMS fees included. No surprise charges or additional compliance costs.
+              </p>
+            </div>
+            <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-orange-700/20">
+              <div className="w-12 h-12 bg-orange-700/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <span className="text-orange-400 text-2xl">🎯</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Proven Results</h3>
+              <p className="text-gray-300">
+                Trusted by regulated businesses nationwide to maintain compliance while growing customer engagement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Support Section */}
+      <section className="py-16 px-6">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-black text-white mb-6">Need Help?</h2>
+          <p className="text-lg text-gray-300 mb-8">
+            Our team is here to help you get started with Gnymble. 
+            Contact us for personalized support and guidance.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" className="inline-block border-2 border-orange-600 text-orange-600 px-6 py-3 rounded-lg text-lg font-black hover:bg-orange-600 hover:text-white transition-all duration-300">
+              Contact Support
+            </a>
+            <a href="/pricing" className="inline-block bg-gray-800 text-white px-6 py-3 rounded-lg text-lg font-black hover:bg-gray-700 transition-all duration-300">
+              View Pricing
+            </a>
+          </div>
+        </div>
+      </section>
+    </PercyTechLayout>
+  );
+} 
