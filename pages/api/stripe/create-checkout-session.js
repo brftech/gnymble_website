@@ -1,6 +1,9 @@
 import Stripe from 'stripe';
 import { getSiteConfig } from '@percytech/shared';
-import logger from '../../../lib/logger';
+
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error('STRIPE_SECRET_KEY is not set');
+}
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -91,7 +94,7 @@ export default async function handler(req, res) {
       allow_promotion_codes: true,
     });
 
-    logger.info('Stripe checkout session created', { 
+    console.log('Stripe checkout session created:', { 
       sessionId: session.id, 
       platform, 
       customerEmail 
@@ -103,7 +106,7 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    logger.error('Stripe checkout session creation failed', { error });
+    console.error('Stripe checkout session creation failed:', error);
     res.status(500).json({ 
       message: 'Failed to create checkout session',
       error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'

@@ -1,4 +1,3 @@
-import { logger } from '../../lib/logger';
 import { rateLimit } from '../../lib/rateLimit';
 import { submitHubspotContact, sendNotificationEmail } from '../../lib/hubspot';
 
@@ -55,7 +54,7 @@ async function handleDemoRequest(req, res) {
     }
 
     // Log additional info for manual review
-    logger.info('Demo request additional info', {
+    console.log('Demo request additional info:', {
       message: hubspotResult.data.message,
       contactEmail: hubspotResult.data.email
     });
@@ -76,7 +75,7 @@ async function handleDemoRequest(req, res) {
     });
 
   } catch (error) {
-    logger.error('Demo request submission error', { error });
+    console.error('Demo request submission error:', error);
     res.status(500).json({ 
       message: 'Failed to submit demo request. Please try again or contact us directly.' 
     });

@@ -8,11 +8,10 @@ export default function GnymbleContact() {
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
     company: '',
+    phone: '',
     jobTitle: '',
-    message: '',
-    solutionInterest: config.name
+    message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -54,11 +53,10 @@ export default function GnymbleContact() {
           firstName: '',
           lastName: '',
           email: '',
-          phone: '',
           company: '',
+          phone: '',
           jobTitle: '',
-          message: '',
-          solutionInterest: config.name
+          message: ''
         });
       } else {
         console.error('Form submission failed:', responseData);
@@ -107,79 +105,72 @@ export default function GnymbleContact() {
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-3xl font-black text-white mb-6">Send us a message</h2>
-              <p className="text-gray-300 leading-relaxed mb-8">
-                Have questions about our SMS platform? Want to learn more about how we can help your business? 
-                Fill out the form and we'll get back to you within 24 hours.
-              </p>
-              
-              <div className="space-y-6">
+      {/* Contact Form Section - Horizontal Layout */}
+      <section className="py-12 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
+            <h2 className="text-3xl font-black text-white mb-6 text-center">Send us a message</h2>
+            
+            {submitStatus === 'success' && (
+              <div className="mb-6 p-4 bg-green-900/20 border border-green-700/30 rounded-lg">
+                <p className="text-green-400 font-semibold">✅ Thank you! We've received your message. Our team will contact you within 24 hours.</p>
+              </div>
+            )}
+            
+            {submitStatus === 'error' && (
+              <div className="mb-6 p-4 bg-amber-900/20 border border-amber-700/30 rounded-lg">
+                <p className="text-amber-400 font-semibold">❌ Please fix the following errors:</p>
+                <ul className="mt-2 text-amber-300 text-sm">
+                  {Object.entries(validationErrors).map(([field, error]) => (
+                    <li key={field}>• {error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+            <p className="text-gray-300 mb-8 text-center">
+              Have questions about our SMS platform? Want to learn more about how we can help your business?
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Row 1: Name and Email */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-3">Why choose {config.name}?</h3>
-                  <ul className="space-y-2 text-gray-300">
-                    <li>• Built specifically for regulated industries</li>
-                    <li>• HIPAA, FINRA, and SEC compliant</li>
-                    <li>• Enterprise-grade security</li>
-                    <li>• 24/7 customer support</li>
-                  </ul>
+                  <label htmlFor="firstName" className="block text-sm font-semibold text-gray-300 mb-2">
+                    First Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
+                    placeholder="Your first name"
+                  />
                 </div>
-                
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-3">Industries we serve</h3>
-                  <ul className="space-y-2 text-gray-300">
-                    <li>• Healthcare & Pharmaceuticals</li>
-                    <li>• Financial Services</li>
-                    <li>• Legal & Professional Services</li>
-                    <li>• Government & Education</li>
-                  </ul>
+                  <label htmlFor="lastName" className="block text-sm font-semibold text-gray-300 mb-2">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
+                    placeholder="Your last name"
+                  />
                 </div>
               </div>
-            </div>
 
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl border border-amber-700/20">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-semibold text-gray-300 mb-2">
-                      First Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
-                      placeholder="Your first name"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-semibold text-gray-300 mb-2">
-                      Last Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
-                      placeholder="Your last name"
-                    />
-                  </div>
-                </div>
-
+              {/* Row 2: Email and Phone */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-2">
-                    Email Address *
+                    Email *
                   </label>
                   <input
                     type="email"
@@ -188,14 +179,13 @@ export default function GnymbleContact() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
                     placeholder="your.email@company.com"
                   />
                 </div>
-
                 <div>
                   <label htmlFor="phone" className="block text-sm font-semibold text-gray-300 mb-2">
-                    Phone Number
+                    Phone
                   </label>
                   <input
                     type="tel"
@@ -203,11 +193,14 @@ export default function GnymbleContact() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
                     placeholder="(555) 123-4567"
                   />
                 </div>
+              </div>
 
+              {/* Row 3: Company and Job Title */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="company" className="block text-sm font-semibold text-gray-300 mb-2">
                     Company
@@ -218,11 +211,10 @@ export default function GnymbleContact() {
                     name="company"
                     value={formData.company}
                     onChange={handleInputChange}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
                     placeholder="Your company name"
                   />
                 </div>
-
                 <div>
                   <label htmlFor="jobTitle" className="block text-sm font-semibold text-gray-300 mb-2">
                     Job Title
@@ -233,72 +225,39 @@ export default function GnymbleContact() {
                     name="jobTitle"
                     value={formData.jobTitle}
                     onChange={handleInputChange}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors"
                     placeholder="Your job title"
                   />
                 </div>
+              </div>
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-gray-300 mb-2">
-                    Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={4}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors resize-none"
-                    placeholder="Tell us about your SMS needs and how we can help..."
-                  />
-                </div>
+              {/* Row 4: Message */}
+              <div>
+                <label htmlFor="message" className="block text-sm font-semibold text-gray-300 mb-2">
+                  Tell us about your needs
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={4}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-amber-700 focus:outline-none transition-colors resize-none"
+                  placeholder="Tell us about your SMS needs and how we can help..."
+                />
+              </div>
 
-                <div>
-                  <label htmlFor="solutionInterest" className="block text-sm font-semibold text-gray-300 mb-2">
-                    Solution Interest
-                  </label>
-                  <select
-                    id="solutionInterest"
-                    name="solutionInterest"
-                    value={formData.solutionInterest}
-                    onChange={handleInputChange}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
-                  >
-                    <option value={config.name}>{config.name} (Regulated Industries)</option>
-                    <option value="PercyMD">PercyMD (Healthcare)</option>
-                    <option value="PercyText">PercyText (General Business)</option>
-                    <option value="general">General Inquiry</option>
-                  </select>
-                </div>
-
+              {/* Submit Button */}
+              <div className="text-center">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-amber-700 to-amber-600 text-white py-4 rounded-lg font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-gradient-to-r from-amber-700 to-amber-600 text-white px-12 py-4 rounded-lg font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
-
-                {submitStatus === 'success' && (
-                  <div className="bg-green-900/20 border border-green-700/20 rounded-lg p-4 text-green-400">
-                    <p className="font-semibold">Message sent successfully!</p>
-                    <p className="text-sm mt-1">We'll get back to you within 24 hours.</p>
-                  </div>
-                )}
-
-                {submitStatus === 'error' && (
-                  <div className="bg-amber-900/20 border border-amber-700/20 rounded-lg p-4 text-amber-400">
-                    <p className="font-semibold">Please fix the following errors:</p>
-                    <ul className="mt-2 text-amber-300 text-sm">
-                      {Object.entries(validationErrors).map(([field, error]) => (
-                        <li key={field}>• {error}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </section>

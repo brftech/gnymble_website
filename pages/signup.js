@@ -75,7 +75,7 @@ export default function SimpleSignup() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-black to-gray-900 flex flex-col">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-amber-800/20">
         <div className="container mx-auto flex justify-between items-center p-4">
@@ -92,8 +92,8 @@ export default function SimpleSignup() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-16 px-6 text-center">
-        <div className="relative z-10">
+      <section className="relative pt-32 pb-16 px-6 text-center flex-1 flex items-center justify-center">
+        <div className="relative z-10 w-full max-w-4xl">
           <div className="inline-block mb-6">
             <span className="bg-amber-700/20 text-amber-400 text-sm font-medium px-3 py-1 rounded-full border border-amber-700/30">
               Onboarding Signup
@@ -104,7 +104,7 @@ export default function SimpleSignup() {
               Start Your {platform.charAt(0).toUpperCase() + platform.slice(1)} Journey
             </span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
             Complete your onboarding signup to begin using {platform.charAt(0).toUpperCase() + platform.slice(1)}'s powerful SMS platform.
           </p>
         </div>

@@ -1,4 +1,3 @@
-import { logger } from '../../lib/logger';
 import { rateLimit } from '../../lib/rateLimit';
 import { submitHubspotContact, sendNotificationEmail } from '../../lib/hubspot';
 
@@ -71,7 +70,7 @@ async function handleContactForm(req, res) {
     });
 
   } catch (error) {
-    logger.error('Contact form submission error', { error });
+    console.error('Contact form submission error:', error);
     res.status(500).json({ 
       message: 'Failed to submit contact form. Please try again or contact us directly.' 
     });

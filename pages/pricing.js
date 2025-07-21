@@ -55,7 +55,7 @@ export default function GnymblePricing() {
                 </li>
               </ul>
               
-              <a href="/stripe-onboarding" className="block w-full bg-gradient-to-r from-amber-600 to-amber-500 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
+                              <a href="/signup?platform=gnymble" className="block w-full bg-gradient-to-r from-amber-600 to-amber-500 text-white text-center py-2.5 rounded-lg font-semibold hover:scale-105 transition-all duration-300">
                 Get Started
               </a>
             </div>
