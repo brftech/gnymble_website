@@ -84,7 +84,8 @@ export default function GnymbleHome() {
       <section className="pt-20 pb-16 px-6 text-center">
         <h1 className="text-6xl font-black leading-tight mb-6">
           <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
-            Texting Without Barriers. Marketing Without Risk.
+            Text With Confidence.<br />
+            Rise Above Barriers.
           </span>
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
