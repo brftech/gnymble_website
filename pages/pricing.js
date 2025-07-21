@@ -1,22 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PercyTechLayout } from "@percytech/shared";
 import { getSiteConfig } from "@percytech/shared";
 
 export default function GnymblePricing() {
   const config = getSiteConfig("gnymble");
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/check');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.isAuthenticated) {
+            setUser(data.user);
+          }
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   return (
-    <PercyTechLayout siteName={config.name} siteDescription={config.description}>
+    <PercyTechLayout siteName={config.name} siteDescription={config.description} user={user}>
       {/* Hero Section */}
-      <section className="pt-20 pb-16 px-6 text-center">
-        <h1 className="text-6xl font-black leading-tight mb-6">
-          <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
-            Simple, Transparent Pricing
-          </span>
-        </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          One plan. Everything included. No hidden fees or surprise charges.
-        </p>
+      <section className="pt-20 pb-16 px-6 text-center relative overflow-hidden">
+        {/* Background cigar smoke image */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img 
+            src="/cigar.png" 
+            alt="" 
+            className="object-contain opacity-10"
+            style={{ width: '400px', height: '300px' }}
+          />
+        </div>
+        
+        {/* Content overlay */}
+        <div className="relative z-10">
+          <h1 className="text-6xl font-black leading-tight mb-6">
+            <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
+              Simple, Transparent Pricing
+            </span>
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            One plan. Everything included. No hidden fees or surprise charges.
+          </p>
+        </div>
       </section>
 
       {/* Pricing Tiers */}

@@ -1,9 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PercyTechLayout, PercyTechHero } from "@percytech/shared";
 import { getSiteConfig } from "@percytech/shared";
 
 export default function GnymbleHome() {
   const config = getSiteConfig("gnymble");
+  // Temporary hardcoded colors until import issue is resolved
+  const colors = {
+    primary: "amber",
+    gradient: "from-amber-700 to-amber-600",
+    border: "border-amber-700/20",
+    hover: "hover:text-amber-600",
+    active: "text-amber-600",
+  };
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/check');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.isAuthenticated) {
+            setUser(data.user);
+          }
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   const features = [
     {
@@ -79,31 +106,184 @@ export default function GnymbleHome() {
   ];
 
   return (
-    <PercyTechLayout siteName={config.name} siteDescription={config.description}>
+    <PercyTechLayout siteName={config.name} siteDescription={config.description} user={user}>
       {/* Hero Section */}
-      <section className="pt-20 pb-16 px-6 text-center">
-        <h1 className="text-6xl font-black leading-tight mb-6">
-          <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
-            Text With Confidence.<br />
-            Rise Above Barriers.
-          </span>
-        </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
-          Launch compliant SMS campaigns for tobacco, alcohol, and other regulated industries—approved 100% of the time.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href={`/signup?platform=${config.name.toLowerCase()}`}
-            className="inline-block bg-gradient-to-r from-amber-700 to-amber-600 text-white px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300"
-          >
-            Get Started →
-          </a>
-          <a
-            href="/demo"
-            className="inline-block border-2 border-amber-700 text-amber-600 px-8 py-4 rounded-lg text-xl font-black hover:bg-amber-700 hover:text-white transition-all duration-300"
-          >
-            Book a Demo
-          </a>
+      <section className="pt-20 pb-16 px-6 relative overflow-hidden">
+        {/* Background cigar smoke image */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img 
+            src="/cigar.png" 
+            alt="" 
+            className="w-full h-full object-cover opacity-10"
+            style={{ maxWidth: '800px', maxHeight: '600px' }}
+          />
+        </div>
+        
+        <div className="container mx-auto relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div className="text-left space-y-6 md:space-y-8">
+              <div className="inline-block">
+                <span className={`bg-${colors.primary}-700/20 text-${colors.primary}-400 text-sm font-medium px-3 py-1 rounded-full border border-${colors.primary}-700/30`}>
+                  Regulated Industry Approved
+                </span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
+                <span className={`bg-gradient-to-r from-white to-${colors.primary}-700 bg-clip-text text-transparent`}>
+                  Text With Confidence.<br />
+                  Rise Above Barriers.
+                </span>
+              </h1>
+              <p className="text-xl text-gray-300 max-w-xl leading-relaxed">
+                Launch compliant SMS campaigns for tobacco, alcohol, and other regulated industries—approved 100% of the time.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href={`/signup?platform=${config.name.toLowerCase()}`}
+                  className={`inline-block bg-gradient-to-r ${colors.gradient} text-white px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300`}
+                >
+                  Get Started →
+                </a>
+                <a
+                  href="/demo"
+                  className={`inline-block border-2 border-${colors.primary}-700 text-${colors.primary}-600 px-8 py-4 rounded-lg text-xl font-black hover:bg-${colors.primary}-700 hover:text-white transition-all duration-300`}
+                >
+                  Book a Demo
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column - Phone Mockup */}
+            <div className="relative min-h-[280px] md:min-h-[500px] flex justify-center lg:justify-end">
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900/70 rounded-2xl overflow-hidden shadow-xl">
+                <div className="absolute inset-0 bg-grid-white/[0.2] bg-[size:20px_20px]" />
+                <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/10 to-transparent" />
+
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[220px] sm:w-[280px] h-[440px] sm:h-[560px] bg-black rounded-[36px] border-[8px] border-gray-700/80 shadow-2xl overflow-hidden">
+                  <div className="absolute top-0 inset-x-0 h-6 bg-black flex items-center justify-center">
+                    <div className="h-4 w-24 bg-gray-700/90 rounded-b-xl flex items-center justify-center">
+                      <div className="w-2 h-2 bg-amber-600/60 rounded-full mr-3" />
+                      <div className="w-1.5 h-1.5 bg-gray-400/40 rounded-full" />
+                    </div>
+                  </div>
+
+                  <div className="absolute inset-0 mt-6">
+                    <div className="h-full bg-[#111] p-2">
+                      <div className={`h-12 bg-${colors.primary}-700 rounded-t-lg flex items-center px-4`}>
+                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                          <span className="text-white text-xs">GN</span>
+                        </div>
+                        <div className="ml-3">
+                          <div className="h-2.5 w-24 bg-white/90 rounded-full" />
+                          <div className="h-2 w-16 bg-white/60 rounded-full mt-1.5" />
+                        </div>
+                      </div>
+
+                      <div className="bg-[#161616] h-[calc(100%-48px)] rounded-b-lg p-3 overflow-hidden">
+                        <div className="flex justify-end mb-4">
+                          <div className={`bg-${colors.primary}-700 text-white rounded-2xl rounded-tr-sm p-3 max-w-[80%] shadow-sm`}>
+                            <p className="text-sm">
+                              New compliance update: All age verification now automated. Your business stays protected! 🛡️
+                            </p>
+                            <p className="text-[9px] text-white/70 text-right mt-1">
+                              2:34 PM
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex mb-4">
+                          <div className="bg-gray-800 text-white rounded-2xl rounded-tl-sm p-3 max-w-[80%] shadow-sm">
+                            <p className="text-sm">
+                              Perfect! No more manual checks. This saves us hours every week. 👍
+                            </p>
+                            <p className="text-[9px] text-white/70 text-left mt-1">
+                              2:36 PM
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex justify-end mb-4">
+                          <div className={`bg-${colors.primary}-700 text-white rounded-2xl rounded-tr-sm p-3 max-w-[80%] shadow-sm`}>
+                            <p className="text-sm">
+                              Campaign sent to 500+ customers. 98% delivery rate, 0 compliance issues! 📊
+                            </p>
+                            <p className="text-[9px] text-white/70 text-right mt-1">
+                              2:37 PM
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex mb-4">
+                          <div className="bg-gray-800 text-white rounded-2xl rounded-tl-sm p-3 max-w-[80%] shadow-sm">
+                            <p className="text-sm">
+                              Incredible results! Our old platform would have blocked half these messages. 🚀
+                            </p>
+                            <p className="text-[9px] text-white/70 text-left mt-1">
+                              2:38 PM
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="absolute bottom-3 inset-x-3">
+                          <div className="flex items-center bg-gray-900 rounded-full px-4 py-2.5">
+                            <div className="h-2 w-32 bg-gray-700 rounded-full" />
+                            <div className={`ml-auto h-7 w-7 rounded-full bg-${colors.primary}-700 flex items-center justify-center`}>
+                              <svg
+                                className="h-3 w-3 text-white"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M3.4 20.4l17.45-7.48a1 1 0 000-1.84L3.4 3.6a.993.993 0 00-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"></path>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Feature Cards */}
+          <div className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div className={`bg-black/40 backdrop-blur-sm rounded-xl p-5 md:p-6 shadow-lg border border-${colors.primary}-700/20 transform transition-all hover:-translate-y-1 hover:shadow-xl hover:border-${colors.primary}-600/40`}>
+              <div className={`w-12 h-12 bg-${colors.primary}-700/20 rounded-lg flex items-center justify-center mb-4 border border-${colors.primary}-700/30`}>
+                <span className={`text-${colors.primary}-400 text-2xl`}>🛡️</span>
+              </div>
+              <h3 className="text-lg md:text-xl font-bold text-white mb-2">
+                Compliance Built-In
+              </h3>
+              <p className="text-gray-300 text-sm md:text-base">
+                Automatic age verification and regulatory compliance for tobacco, alcohol, and other regulated industries.
+              </p>
+            </div>
+
+            <div className={`bg-black/40 backdrop-blur-sm rounded-xl p-5 md:p-6 shadow-lg border border-${colors.primary}-700/20 transform transition-all hover:-translate-y-1 hover:shadow-xl hover:border-${colors.primary}-600/40`}>
+              <div className={`w-12 h-12 bg-${colors.primary}-700/20 rounded-lg flex items-center justify-center mb-4 border border-${colors.primary}-700/30`}>
+                <span className={`text-${colors.primary}-400 text-2xl`}>📱</span>
+              </div>
+              <h3 className="text-lg md:text-xl font-bold text-white mb-2">
+                Industry Approved
+              </h3>
+              <p className="text-gray-300 text-sm md:text-base">
+                Trusted by 500+ businesses in regulated industries. Never get blocked or banned again.
+              </p>
+            </div>
+
+            <div className={`bg-black/40 backdrop-blur-sm rounded-xl p-5 md:p-6 shadow-lg border border-${colors.primary}-700/20 transform transition-all hover:-translate-y-1 hover:shadow-xl hover:border-${colors.primary}-600/40`}>
+              <div className={`w-12 h-12 bg-${colors.primary}-700/20 rounded-lg flex items-center justify-center mb-4 border border-${colors.primary}-700/30`}>
+                <span className={`text-${colors.primary}-400 text-2xl`}>⚡</span>
+              </div>
+              <h3 className="text-lg md:text-xl font-bold text-white mb-2">
+                Setup in 24 Hours
+              </h3>
+              <p className="text-gray-300 text-sm md:text-base">
+                Get started immediately with our streamlined onboarding process and dedicated support.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -111,13 +291,13 @@ export default function GnymbleHome() {
       <section className="py-16 px-6 bg-gradient-to-b from-transparent to-black/20">
         <div className="max-w-6xl mx-auto text-center">
           <div className="mb-12">
-            <div className="inline-block bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-amber-700/20">
+            <div className={`inline-block bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-${colors.primary}-700/20`}>
               <img 
                 src="/pca-logo.png" 
                 alt="PCA Premium Cigar Association Preferred Partner"
                 className="h-16 mx-auto mb-4"
               />
-              <h3 className="text-lg font-semibold text-amber-400 mb-2">PCA PREMIUM CIGAR ASSOCIATION</h3>
+              <h3 className={`text-lg font-semibold text-${colors.primary}-400 mb-2`}>PCA PREMIUM CIGAR ASSOCIATION</h3>
               <p className="text-white font-bold">Preferred Partner</p>
             </div>
           </div>
@@ -130,7 +310,7 @@ export default function GnymbleHome() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center">
             {clients.map((client, index) => (
               <div key={index} className="group">
-                <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-amber-700/20 hover:border-amber-700/40 transition-all duration-300 min-h-[140px] flex flex-col items-center justify-center">
+                <div className={`bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-${colors.primary}-700/20 hover:border-${colors.primary}-700/40 transition-all duration-300 min-h-[140px] flex flex-col items-center justify-center`}>
                   {/* Client Logo */}
                   <div className="w-20 h-20 mb-3 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
                     <img 
@@ -144,8 +324,8 @@ export default function GnymbleHome() {
                       }}
                     />
                     {/* Fallback letter icon */}
-                    <div className="w-16 h-16 bg-amber-700/20 rounded-lg flex items-center justify-center hidden">
-                      <span className="text-amber-400 text-2xl font-bold">
+                    <div className={`w-16 h-16 bg-${colors.primary}-700/20 rounded-lg flex items-center justify-center hidden`}>
+                      <span className={`text-${colors.primary}-400 text-2xl font-bold`}>
                         {client.name.charAt(0)}
                       </span>
                     </div>
@@ -153,7 +333,7 @@ export default function GnymbleHome() {
                   <div className="text-center">
                     <div className="text-white font-semibold text-sm mb-1 leading-tight">{client.name}</div>
                     <div className="text-gray-400 text-xs mb-1">{client.industry}</div>
-                    <div className="text-amber-400 text-xs opacity-75">{client.description}</div>
+                    <div className={`text-${colors.primary}-400 text-xs opacity-75`}>{client.description}</div>
                   </div>
                 </div>
               </div>
@@ -163,7 +343,7 @@ export default function GnymbleHome() {
           <div className="mt-12">
             <a
               href="/contact"
-              className="inline-block text-amber-400 hover:text-amber-300 transition-colors font-semibold"
+              className={`inline-block text-${colors.primary}-400 hover:text-${colors.primary}-300 transition-colors font-semibold`}
             >
               Join our growing list of satisfied clients →
             </a>

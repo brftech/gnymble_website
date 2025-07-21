@@ -92,7 +92,17 @@ export default function SimpleSignup() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 px-6 text-center flex-1 flex items-center justify-center">
+      <section className="relative pt-32 pb-16 px-6 text-center flex-1 flex items-center justify-center overflow-hidden">
+        {/* Background cigar smoke image */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img 
+            src="/cigar.png" 
+            alt="" 
+            className="object-contain opacity-10"
+            style={{ width: '400px', height: '300px' }}
+          />
+        </div>
+        
         <div className="relative z-10 w-full max-w-4xl">
           <div className="inline-block mb-6">
             <span className="bg-amber-700/20 text-amber-400 text-sm font-medium px-3 py-1 rounded-full border border-amber-700/30">

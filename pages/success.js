@@ -44,8 +44,18 @@ export default function SuccessPage() {
   return (
     <PercyTechLayout siteName={config.name} siteDescription={config.description}>
       {/* Hero Section */}
-      <section className="pt-20 pb-16 px-6 text-center">
-        <div className="max-w-4xl mx-auto">
+      <section className="pt-20 pb-16 px-6 text-center relative overflow-hidden">
+        {/* Background cigar smoke image */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img 
+            src="/cigar.png" 
+            alt="" 
+            className="object-contain opacity-10"
+            style={{ width: '400px', height: '300px' }}
+          />
+        </div>
+        
+        <div className="relative z-10 max-w-4xl mx-auto">
           <div className="w-20 h-20 bg-green-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-green-400 text-3xl">✓</span>
           </div>

@@ -33,6 +33,13 @@ async function handleContactForm(req, res) {
           message: 'Validation failed',
           errors: hubspotResult.validationErrors
         });
+      } else if (hubspotResult.isDuplicate) {
+        // Handle duplicate contact case with user-friendly message
+        return res.status(409).json({ 
+          message: 'Email already registered',
+          error: hubspotResult.error,
+          isDuplicate: true
+        });
       } else {
         return res.status(500).json({ 
           message: hubspotResult.reason || 'Form submission failed',

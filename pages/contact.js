@@ -1,9 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PercyTechLayout } from "@percytech/shared";
 import { getSiteConfig } from "@percytech/shared";
 
 export default function GnymbleContact() {
   const config = getSiteConfig("gnymble");
+  // Temporary hardcoded colors until import issue is resolved
+  const colors = {
+    primary: "amber",
+    gradient: "from-amber-700 to-amber-600",
+    border: "border-amber-700/20",
+    hover: "hover:text-amber-600",
+    active: "text-amber-600",
+  };
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/check');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.isAuthenticated) {
+            setUser(data.user);
+          }
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+      }
+    };
+
+    checkAuth();
+  }, []);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -60,9 +87,15 @@ export default function GnymbleContact() {
         });
       } else {
         console.error('Form submission failed:', responseData);
-        setSubmitStatus('error');
-        if (responseData.errors) {
-          setValidationErrors(responseData.errors);
+        
+        // Handle duplicate email case
+        if (response.status === 409 && responseData.isDuplicate) {
+          setSubmitStatus('duplicate');
+        } else {
+          setSubmitStatus('error');
+          if (responseData.errors) {
+            setValidationErrors(responseData.errors);
+          }
         }
       }
     } catch (error) {
@@ -74,17 +107,30 @@ export default function GnymbleContact() {
   };
 
   return (
-    <PercyTechLayout siteName={config.name} siteDescription={config.description}>
+    <PercyTechLayout siteName={config.name} siteDescription={config.description} user={user}>
       {/* Hero Section */}
-      <section className="pt-20 pb-16 px-6 text-center">
-        <h1 className="text-6xl font-black leading-tight mb-6">
-          <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
-            Contact Us
-          </span>
-        </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          We love texting. We believe it's a powerful business communication tool.
-        </p>
+      <section className="pt-20 pb-16 px-6 text-center relative overflow-hidden">
+        {/* Background cigar smoke image */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img 
+            src="/cigar.png" 
+            alt="" 
+            className="object-contain opacity-10"
+            style={{ width: '400px', height: '300px' }}
+          />
+        </div>
+        
+        {/* Content overlay */}
+        <div className="relative z-10">
+          <h1 className="text-6xl font-black leading-tight mb-6">
+            <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
+              Contact Us
+            </span>
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            We love texting. We believe it's a powerful business communication tool.
+          </p>
+        </div>
       </section>
 
       {/* Text Us Section */}
@@ -124,6 +170,20 @@ export default function GnymbleContact() {
                   {Object.entries(validationErrors).map(([field, error]) => (
                     <li key={field}>• {error}</li>
                   ))}
+                </ul>
+              </div>
+            )}
+            
+            {submitStatus === 'duplicate' && (
+              <div className="mb-6 p-4 bg-blue-900/20 border border-blue-700/30 rounded-lg">
+                <p className="text-blue-400 font-semibold">ℹ️ Email Already Registered</p>
+                <p className="text-blue-300 text-sm mt-2">
+                  This email address is already registered in our system. You can:
+                </p>
+                <ul className="mt-2 text-blue-300 text-sm">
+                  <li>• Use a different email address</li>
+                  <li>• Contact us directly at <a href="mailto:info@gnymble.com" className="text-blue-400 hover:text-blue-300 underline">info@gnymble.com</a></li>
+                  <li>• Call us at <a href="tel:+1234567890" className="text-blue-400 hover:text-blue-300 underline">(123) 456-7890</a></li>
                 </ul>
               </div>
             )}

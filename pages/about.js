@@ -8,15 +8,28 @@ export default function GnymbleAbout() {
   return (
     <PercyTechLayout siteName={config.name} siteDescription={config.description}>
       {/* Hero Section */}
-      <section className="pt-20 pb-16 px-6 text-center">
-        <h1 className="text-6xl font-black leading-tight mb-6">
-          <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
-            Our Story
-          </span>
-        </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          {config.name} was originally developed for Dr. Fine at Percentric Physicians. Dr. Fine responded to patients' outcry to be able to text (without downloading an app).
-        </p>
+      <section className="pt-20 pb-16 px-6 text-center relative overflow-hidden">
+        {/* Background cigar smoke image */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img 
+            src="/cigar.png" 
+            alt="" 
+            className="object-contain opacity-10"
+            style={{ width: '400px', height: '300px' }}
+          />
+        </div>
+        
+        {/* Content overlay */}
+        <div className="relative z-10">
+          <h1 className="text-6xl font-black leading-tight mb-6">
+            <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
+              Our Story
+            </span>
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            {config.name} was originally developed for Dr. Fine at Percentric Physicians. Dr. Fine responded to patients' outcry to be able to text (without downloading an app).
+          </p>
+        </div>
       </section>
 
       {/* Mission Section */}

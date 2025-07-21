@@ -60,9 +60,15 @@ export default function GnymbleDemo() {
         });
       } else {
         console.error('Demo form submission failed:', responseData);
-        setSubmitStatus('error');
-        if (responseData.errors) {
-          setValidationErrors(responseData.errors);
+        
+        // Handle duplicate email case
+        if (response.status === 409 && responseData.isDuplicate) {
+          setSubmitStatus('duplicate');
+        } else {
+          setSubmitStatus('error');
+          if (responseData.errors) {
+            setValidationErrors(responseData.errors);
+          }
         }
       }
     } catch (error) {
@@ -76,16 +82,29 @@ export default function GnymbleDemo() {
   return (
     <PercyTechLayout siteName={config.name} siteDescription={config.description}>
       {/* Hero Section */}
-      <section className="pt-20 pb-16 px-6 text-center">
-        <h1 className="text-6xl font-black leading-tight mb-6">
-          <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
-            See {config.name} in Action
-          </span>
-        </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          Experience how {config.name} transforms SMS communications for regulated industries. 
-          Get a personalized demo tailored to your compliance needs.
-        </p>
+      <section className="pt-20 pb-16 px-6 text-center relative overflow-hidden">
+        {/* Background cigar smoke image */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img 
+            src="/cigar.png" 
+            alt="" 
+            className="object-contain opacity-10"
+            style={{ width: '400px', height: '300px' }}
+          />
+        </div>
+        
+        {/* Content overlay */}
+        <div className="relative z-10">
+          <h1 className="text-6xl font-black leading-tight mb-6">
+            <span className="bg-gradient-to-r from-white to-amber-700 bg-clip-text text-transparent">
+              See {config.name} in Action
+            </span>
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Experience how {config.name} transforms SMS communications for regulated industries. 
+            Get a personalized demo tailored to your compliance needs.
+          </p>
+        </div>
       </section>
 
       {/* Demo Form Section - Horizontal Layout */}
@@ -107,6 +126,20 @@ export default function GnymbleDemo() {
                   {Object.entries(validationErrors).map(([field, error]) => (
                     <li key={field}>• {error}</li>
                   ))}
+                </ul>
+              </div>
+            )}
+            
+            {submitStatus === 'duplicate' && (
+              <div className="mb-6 p-4 bg-blue-900/20 border border-blue-700/30 rounded-lg">
+                <p className="text-blue-400 font-semibold">ℹ️ Email Already Registered</p>
+                <p className="text-blue-300 text-sm mt-2">
+                  This email address is already registered in our system. You can:
+                </p>
+                <ul className="mt-2 text-blue-300 text-sm">
+                  <li>• Use a different email address</li>
+                  <li>• Contact us directly at <a href="mailto:info@gnymble.com" className="text-blue-400 hover:text-blue-300 underline">info@gnymble.com</a></li>
+                  <li>• Call us at <a href="tel:+1234567890" className="text-blue-400 hover:text-blue-300 underline">(123) 456-7890</a></li>
                 </ul>
               </div>
             )}
