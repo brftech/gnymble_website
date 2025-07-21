@@ -132,24 +132,24 @@ export default function GnymbleHome() {
                 <span className={`bg-gradient-to-r from-white to-${colors.primary}-700 bg-clip-text text-transparent`}>
                   Text With Confidence.<br />
                   Rise Above Barriers.
-                </span>
-              </h1>
+          </span>
+        </h1>
               <p className="text-xl text-gray-300 max-w-xl leading-relaxed">
-                Launch compliant SMS campaigns for tobacco, alcohol, and other regulated industries—approved 100% of the time.
-              </p>
+          Launch compliant SMS campaigns for tobacco, alcohol, and other regulated industries—approved 100% of the time.
+        </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href={`/signup?platform=${config.name.toLowerCase()}`}
+          <a
+            href={`/signup?platform=${config.name.toLowerCase()}`}
                   className={`inline-block bg-gradient-to-r ${colors.gradient} text-white px-8 py-4 rounded-lg text-xl font-black hover:scale-105 hover:shadow-2xl transition-all duration-300`}
-                >
-                  Get Started →
-                </a>
-                <a
-                  href="/demo"
+          >
+            Get Started →
+          </a>
+          <a
+            href="/demo"
                   className={`inline-block border-2 border-${colors.primary}-700 text-${colors.primary}-600 px-8 py-4 rounded-lg text-xl font-black hover:bg-${colors.primary}-700 hover:text-white transition-all duration-300`}
-                >
-                  Book a Demo
-                </a>
+          >
+            Book a Demo
+          </a>
               </div>
             </div>
 
